@@ -1,0 +1,497 @@
+/* --- static/css/chat.css --- */
+/* NOTA: Este archivo hereda las variables :root definidas en style.css */
+
+/* CONTENEDOR PRINCIPAL */
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+    max-width: 800px;
+    margin: 1rem auto;
+    /* Usa el color de fondo secundario del tema (gris claro u oscuro según el modo) */
+    background: var(--secondary-bg-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    font-family: 'Poppins', sans-serif; /* Coherencia con style.css */
+}
+
+/* CABECERA DEL CHAT */
+.chat-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    /* Invertimos: cabecera con fondo base para contraste con el contenedor */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* ÁREA DE MENSAJES */
+.chat-messages {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    scroll-behavior: smooth;
+}
+
+/* BURBUJAS DE MENSAJE (Base) */
+.message {
+    padding: 0.8rem 1.25rem;
+    border-radius: 18px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.message.bot {
+    /* Esta línea mantiene el fondo distintivo (grisáceo o según tu tema) */
+    background-color: var(--bg-color); 
+    
+    color: var(--text-color);
+    align-self: flex-start;
+    
+    /* Bordes redondeados (la forma de burbuja) */
+    border-bottom-left-radius: 4px;
+    border-radius: 18px; /* Mantiene la redondez general */
+    
+    border: 1px solid var(--border-color);
+    line-height: 1.6;
+    
+    /* Asegura que el texto respete el espacio de la burbuja */
+    padding: 1rem 1.25rem; 
+    width: fit-content;
+}
+
+/* ESTILOS DEL BOT */
+.message.bot p {
+    margin-bottom: 10px; /* Separación entre párrafos */
+    margin-top: 0;
+}
+
+.message.bot p:last-child {
+    margin-bottom: 0; /* Quitar margen al último párrafo */
+}
+
+.message.bot ul, .message.bot ol {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding-left: 20px; /* Sangría para que los puntos se vean bien */
+}
+
+.message.bot li {
+    margin-bottom: 5px; /* Espacio entre cada punto */
+    list-style-type: disc; /* Asegura que salgan los puntos */
+}
+
+/* Títulos y negritas dentro del mensaje del Bot */
+.message.bot strong, .message.bot b {
+    font-weight: 700;
+    color: var(--primary-color); /* Opcional: Resalta las palabras clave en azul/color tema */
+}
+
+.message.bot h1, .message.bot h2, .message.bot h3 {
+    font-size: 1.1em;
+    font-weight: 800;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.message.bot .chat-title {
+    font-size: 1.1em;
+    font-weight: 800;
+    color: var(--primary-color); /* Usa el azul vibrante del tema */
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/* ESTILOS DEL USUARIO */
+.message.user {
+    /* Usa el azul primario definido en style.css */
+    background-color: var(--primary-color);
+    color: var(--primary-text); /* Texto blanco siempre */
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+/* ÁREA DE INPUT */
+.chat-input {
+    display: flex;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    padding: 12px;
+    gap: 10px;
+}
+
+.chat-input input[type="text"] {
+    flex-grow: 1;
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 1.2rem;
+    border-radius: 25px;
+    /* Fondo que contrasta ligeramente con el área de input */
+    background: var(--secondary-bg-color); 
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.2s, background-color 0.3s;
+}
+
+.chat-input input[type="text"]:focus {
+    border-color: var(--primary-color);
+    /* En foco, hacemos el fondo igual al base para efecto de "activación" */
+    background: var(--bg-color); 
+}
+
+.chat-input button {
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--primary-text);
+    padding: 0 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+.chat-input button:hover {
+    opacity: 0.9;
+}
+.chat-input button:active {
+    transform: scale(0.98);
+}
+
+/* --- ELEMENTOS ESPECIALES --- */
+
+/* Animación de la Cara Cargando */
+.loading-face {
+    font-size: 2rem;
+    text-align: center;
+    animation: bounce 1s infinite;
+    display: none;
+    margin: 15px 0;
+    color: var(--primary-color);
+    width: 100%;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Botón Regenerar */
+.regenerate-container {
+    text-align: center; 
+    padding-bottom: 10px;
+    background-color: transparent; /* Transparente para tomar el fondo del contenedor */
+    min-height: 40px;
+}
+
+.regenerate-btn {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    padding: 6px 16px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 5px;
+    display: none;
+    transition: all 0.2s;
+}
+
+.regenerate-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-color);
+}
+
+/* Scrollbar personalizada para Webkit */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--secondary-bg-color); 
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color); 
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #777; 
+}
+
+/* Botones de selección de programa en el modal */
+.program-btn {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+    width: 100%;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.program-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+/* Asegurar que el modal esté siempre encima */
+#programModal {
+    z-index: 9999;
+    backdrop-filter: blur(5px); /* Efecto borroso en el fondo */
+}
+
+/* --- MODAL DE ACCESO (BLOQUEO PANTALLA) --- */
+
+/* Fondo que cubre toda la pantalla */
+.access-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* Fondo semitransparente oscuro */
+    background-color: rgba(0, 0, 0, 0.7); 
+    /* EFECTO BORROSO (Blur) */
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); /* Soporte para Safari */
+    z-index: 10000; /* Por encima de todo */
+    display: flex; /* Para centrar la caja */
+    justify-content: center;
+    align-items: center;
+    /* Animación de entrada */
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Caja del contenido */
+.access-box {
+    background-color: var(--secondary-bg-color); /* Se adapta al tema (claro/oscuro) */
+    padding: 2.5rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    /* Animación de entrada (subir un poco) */
+    animation: slideUp 0.5s ease-out;
+}
+
+.access-title {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.access-desc {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Grid de botones para los programas */
+.programs-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Una columna en móviles */
+    gap: 12px;
+}
+
+@media (min-width: 600px) {
+    .programs-grid {
+        grid-template-columns: 1fr 1fr; /* Dos columnas en PC */
+    }
+}
+
+/* Estilo de los botones de selección */
+.program-btn {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.program-btn:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+}
+
+.program-btn:active {
+    transform: scale(0.98);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- MODAL DE ACCESO (BLOQUEO PANTALLA) --- */
+
+.access-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.access-box {
+    /* Cambiado para usar el fondo secundario del tema */
+    background-color: var(--secondary-bg-color); 
+    padding: 2.5rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    animation: slideUp 0.5s ease-out;
+    /* Asegura que el texto base sea el del tema */
+    color: var(--text-color);
+}
+
+/* Estilo para la caja de aviso dentro del disclaimer */
+.disclaimer-note {
+    /* En lugar de #f8f9fa fijo, usamos el color de fondo base para contraste */
+    background-color: var(--bg-color) !important;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    /* Usamos el color de texto secundario del tema */
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border-color);
+}
+
+/* Estilo para el "botón" visual dentro del texto */
+.fake-btn-label {
+    background: var(--secondary-bg-color) !important;
+    color: var(--text-color) !important;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid var(--border-color);
+}
+
+/* Ajuste de los checkboxes y enlaces en modo oscuro */
+.access-box label {
+    color: var(--text-color);
+}
+
+.access-box a {
+    color: var(--primary-color);
+}
+
+/* Botón deshabilitado adaptado */
+#btn-continue-chat:disabled {
+    background-color: var(--border-color) !important;
+    color: var(--text-secondary) !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* --- NUEVOS ESTILOS EXTRAÍDOS DEL HTML --- */
+
+/* Estilo del texto "Pensando..." dentro de la cara de carga */
+.loading-face span {
+    font-size: 1rem;
+}
+
+/* Contenedor del paso de Disclaimer */
+.disclaimer-step {
+    display: none; 
+    text-align: left;
+}
+
+.disclaimer-title {
+    font-size: 1.2rem; 
+    margin-bottom: 15px;
+}
+
+/* Caja de nota informativa */
+.disclaimer-note {
+    background-color: var(--bg-color); /* Cambiado a variable para modo oscuro */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.disclaimer-note p {
+    margin-bottom: 10px;
+}
+
+/* Centrado del ejemplo del botón dentro del texto */
+.fake-btn-container {
+    text-align: center; 
+    margin: 10px 0;
+}
+
+/* Contenedor del Checkbox de términos */
+.terms-container {
+    margin-bottom: 20px; 
+    display: flex; 
+    align-items: flex-start; 
+    gap: 10px;
+}
+
+.terms-container label {
+    font-size: 0.9rem; 
+    cursor: pointer;
+}
+
+/* Botón de continuar específico */
+.btn-continue {
+    width: 100%;
+}
+
+/* Estado deshabilitado del botón continuar */
+#btn-continue-chat:disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed;
+    border-color: #bbb;
+}

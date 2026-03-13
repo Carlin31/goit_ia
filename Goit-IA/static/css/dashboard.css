@@ -1,0 +1,353 @@
+/* static/css/dashboard.css */
+
+/* HEADER */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+/* BOTONES GENERALES */
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.btn-secondary:hover {
+    border-color: var(--text-color);
+    color: var(--text-color);
+    background-color: var(--secondary-bg-color);
+}
+
+.cta-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+.cta-button:hover {
+    opacity: 0.9;
+}
+
+/* PANELES (Tarjetas) */
+.dashboard-panel {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.panel-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+}
+
+/* GRID LAYOUT */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr 1fr; /* Dos columnas en PC */
+    }
+}
+
+/* FORMULARIOS INTERNOS */
+.admin-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.admin-input {
+    flex: 1;
+    padding: 0.7rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+}
+.admin-input:focus {
+    border-color: var(--primary-color);
+}
+
+.btn-small {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+}
+
+/* TABLAS */
+.table-container {
+    overflow-x: auto; /* Mantiene scroll horizontal si es necesario */
+    overflow-y: auto; /* Activa el scroll vertical */
+    
+    /* Altura calculada para aprox. 10 filas + encabezado */
+    max-height: 500px; 
+    
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-color);
+    min-height: 100px;
+    
+    /* Sombra interna suave para indicar que hay scroll (opcional) */
+    scrollbar-width: thin; /* Para Firefox */
+    scrollbar-color: var(--border-color) transparent;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+.table-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 1rem;
+    color: var(--text-secondary);
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 600;
+    background-color: var(--secondary-bg-color);
+    position: sticky; /* Hace que se "pegue" arriba */
+    top: 0;           /* Se queda en la posición 0 del contenedor */
+    z-index: 10;      /* Asegura que flote por encima del texto */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Sombra para separar del contenido */
+}
+
+.data-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+    color: var(--text-color);
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.data-table a:hover {
+    text-decoration: underline;
+}
+
+/* ESTADOS */
+.status-active { color: #34C759; font-weight: 500; }
+.status-pending { color: #FF9500; font-weight: 500; }
+.status-error { color: #FF3B30; font-weight: 500; }
+
+/* ALERTAS (FLASH MESSAGES) */
+.alert-box {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border-left: 5px solid var(--primary-color);
+    background-color: var(--secondary-bg-color);
+    color: var(--text-color);
+    font-weight: 500;
+}
+.alert-error { border-color: #FF3B30; }
+.alert-success { border-color: #34C759; }
+.alert-warning { border-color: #FF9500; }
+
+/* BOTONES DE ICONO (EDITAR / BORRAR) */
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.4rem;
+    border-radius: 4px;
+    transition: background 0.2s, transform 0.1s;
+    margin-left: 5px;
+    display: inline-flex; /* Asegura alineación */
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon:hover {
+    background-color: var(--border-color);
+}
+.btn-icon:active {
+    transform: scale(0.95);
+}
+
+/* Colores hover específicos */
+.btn-danger:hover {
+    background-color: rgba(255, 59, 48, 0.1); /* Rojo suave */
+}
+.btn-edit:hover {
+    background-color: rgba(0, 122, 255, 0.1); /* Azul suave */
+}
+
+/* MODALES (VENTANAS EMERGENTES) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo más oscuro */
+    backdrop-filter: blur(4px); /* Efecto borroso */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.2s;
+}
+
+.modal-box {
+    background-color: var(--secondary-bg-color);
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s;
+}
+
+.modal-box h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- AGREGAR AL FINAL DE dashboard.css --- */
+
+/* BARRA DE FILTROS Y BÚSQUEDA */
+.filter-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-input {
+    flex: 2; /* Ocupa más espacio */
+    padding: 0.6rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+    min-width: 200px;
+}
+
+.filter-select {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.filter-input:focus, .filter-select:focus {
+    border-color: var(--primary-color);
+}
+
+/* Ajuste para móvil */
+@media (max-width: 600px) {
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* --- CONSOLA DE ENTRENAMIENTO (LOG) --- */
+.terminal-window {
+    background-color: #1e1e1e;
+    color: #00ff00; /* Verde hacker */
+    font-family: 'Courier New', Courier, monospace;
+    padding: 1.5rem;
+    border-radius: 8px;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #333;
+    margin-top: 1rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    display: none; /* Oculto por defecto */
+}
+
+.terminal-line {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    border-bottom: 1px solid #333;
+    padding-bottom: 2px;
+    animation: fadeIn 0.3s;
+}
+
+/* Indicador de carga parpadeante */
+.blinking-cursor::after {
+    content: "▋";
+    animation: blink 1s step-start infinite;
+    color: #00ff00;
+    margin-left: 5px;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}

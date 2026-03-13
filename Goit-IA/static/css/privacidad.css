@@ -1,0 +1,20 @@
+/* static/css/privacidad.css */
+
+/* Por ahora este archivo es simple porque hereda mucho de base.css,
+   pero es útil tenerlo por si quieres personalizar solo esta página después */
+
+#privacy-section {
+    padding-bottom: 2rem;
+}
+
+#privacy-section p, 
+#privacy-section li {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+#privacy-section h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}

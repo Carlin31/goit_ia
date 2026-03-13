@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Goit-IA{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    
+    {% block styles %}{% endblock %}
+
+    <link rel="icon" href="{{ url_for('static', filename='images/isotipo-oscuro.svg') }}" media="(prefers-color-scheme: light)">
+    
+    <link rel="icon" href="{{ url_for('static', filename='images/isotipo-claro.svg') }}" media="(prefers-color-scheme: dark)">
+    
+    <link rel="icon" href="{{ url_for('static', filename='images/isotipo-oscuro.svg') }}">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('inicio.index') }}">
+                <img src="{{ url_for('static', filename='images/logo-claro.svg') }}" 
+                     alt="Logo Goit-IA" 
+                     class="logo-light-mode">
+                
+                <img src="{{ url_for('static', filename='images/logo-oscuro.svg') }}" 
+                     alt="Logo Goit-IA" 
+                     class="logo-dark-mode">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('inicio.index') }}" 
+                       class="{{ 'active' if active_page == 'inicio' else '' }}">Inicio</a></li>
+                
+                <li><a href="{{ url_for('chatbot.chat') }}"
+                       class="{{ 'active' if active_page == 'chat' else '' }}">Chat</a></li>
+                       
+                <li><a href="{{ url_for('informacion.info') }}"
+                       class="{{ 'active' if active_page == 'informacion' else '' }}">Información</a></li>
+                       
+                <li><a href="{{ url_for('acercade.acerca_de') }}"
+                       class="{{ 'active' if active_page == 'acerca_de' else '' }}">About Us</a></li>
+            </ul>
+        </nav>
+            <label class="theme-switch" for="dark-mode-toggle">
+                <input type="checkbox" id="dark-mode-toggle">
+                
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+
+            </label>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+<footer class="site-footer">
+        <div class="footer-container">
+            
+            <div class="footer-col brand-col">
+                <div class="footer-logo">
+                    <a href="{{ url_for('inicio.index') }}">
+                        <img src="{{ url_for('static', filename='images/logo-claro.svg') }}" 
+                             alt="Logo Goit-IA" 
+                             class="logo-light-mode">
+                        <img src="{{ url_for('static', filename='images/logo-oscuro.svg') }}" 
+                             alt="Logo Goit-IA" 
+                             class="logo-dark-mode">
+                    </a>
+                </div>
+                <p class="footer-desc">
+                    Potenciando el aprendizaje y la gestión del conocimiento a través de Inteligencia Artificial. Tu asistente universitario confiable.
+                </p>
+            </div>
+
+            <div class="footer-col links-col">
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="{{ url_for('inicio.index') }}">Inicio</a></li>
+                    <li><a href="{{ url_for('chatbot.chat') }}">Chat</a></li>
+                    <li><a href="{{ url_for('informacion.info') }}">Información</a></li>
+                    <li><a href="{{ url_for('acercade.acerca_de') }}">About Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col links-col">
+                <h3>Legal y Administración</h3>
+                <ul>
+                    <li><a href="{{ url_for('privacidad.privacidad') }}">Aviso de Privacidad</a></li>
+                    <li><a href="{{ url_for('admin.login') }}">Administración</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col faculty-col centered-col">
+                
+                <div class="faculty-logo">
+                    <a href="https://www.uv.mx/orizaba/negocios/" target="_blank">
+                        <img src="{{ url_for('static', filename='images/logo-uv-claro.svg') }}" 
+                             alt="Logo UV" 
+                             class="logo-light-mode">
+                        
+                        <img src="{{ url_for('static', filename='images/logo-uv-oscuro.svg') }}" 
+                             alt="Logo UV" 
+                             class="logo-dark-mode">
+                    </a>
+                </div>
+
+                <div class="faculty-text">
+                    <strong>Universidad Veracruzana</strong><br>
+                    Facultad de Negocios y Tecnologías
+                </div>
+
+                <div class="social-icons faculty-icons">
+                    <a href="https://www.facebook.com/FacultadNegociosyTecnologiaCampusIxtac" target="_blank" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="https://www.instagram.com/fnt_uvixtac/" target="_blank" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <a href="https://www.uv.mx/orizaba/negocios/" target="_blank" aria-label="Web">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Goit-IA. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+</html>

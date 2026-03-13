@@ -1,0 +1,212 @@
+{
+    "csvs": [],
+    "urls": [
+        {
+            "name": "tramites-escolares",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/",
+            "status": "Activo"
+        },
+        {
+            "name": "tramites-escolares-total",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/tramites-escolares-total/",
+            "status": "Activo"
+        },
+        {
+            "name": "inscripcion-academico-administrativa",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/inscripcion-academico-administrativa/",
+            "status": "Activo"
+        },
+        {
+            "name": "credencial-estudiante-fisica",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/credencial-estudiante-fisica/",
+            "status": "Activo"
+        },
+        {
+            "name": "credencial-estudiante-digital",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/credencial-estudiante-digital/",
+            "status": "Activo"
+        },
+        {
+            "name": "seguro-facultativo",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/seguro-facultativo/",
+            "status": "Activo"
+        },
+        {
+            "name": "examen-de-salud-integral-esi",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/examen-de-salud-integral-esi/",
+            "status": "Activo"
+        },
+        {
+            "name": "cambio-programa-educativo",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/cambio-programa-educativo/",
+            "status": "Activo"
+        },
+        {
+            "name": "reinscripcion-inscripcion-en-linea-il",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/reinscripcion-inscripcion-en-linea-il/",
+            "status": "Activo"
+        },
+        {
+            "name": "declaracion-de-equivalencia-o-revalidacion-de-estudios",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/declaracion-de-equivalencia-o-revalidacion-de-estudios/",
+            "status": "Activo"
+        },
+        {
+            "name": "baja-temporal-por-periodo-escolar",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/baja-temporal-por-periodo-escolar",
+            "status": "Activo"
+        },
+        {
+            "name": "baja-temporal-por-experiencia-educativa",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/baja-temporal-por-experiencia-educativa",
+            "status": "Activo"
+        },
+        {
+            "name": "baja-temporal-extemporanea",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/baja-temporal-extemporanea/",
+            "status": "Activo"
+        },
+        {
+            "name": "baja-definitiva",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/baja-definitiva/",
+            "status": "Activo"
+        },
+        {
+            "name": "cambio-tutor-academico",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/cambio-tutor-academico/",
+            "status": "Activo"
+        },
+        {
+            "name": "traslado-escolar",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/traslado-escolar/",
+            "status": "Activo"
+        },
+        {
+            "name": "dictamen-para-la-acreditacion-del-idioma-ingles-o-acreditacion-de-la-lengua",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/dictamen-para-la-acreditacion-del-idioma-ingles-o-acreditacion-de-la-lengua/",
+            "status": "Activo"
+        },
+        {
+            "name": "transferencia-de-calificacion-de-ee-a-otro-programa-educativo",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/transferencia-de-calificacion-de-ee-a-otro-programa-educativo/",
+            "status": "Activo"
+        },
+        {
+            "name": "equivalencia-y-o-transferencia-de-calificacion-de-lengua-i-ii-o-ingles-i-ii-al-mismo-programa-educativo-que-cursa-el-alumno",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/equivalencia-y-o-transferencia-de-calificacion-de-lengua-i-ii-o-ingles-i-ii-al-mismo-programa-educativo-que-cursa-el-alumno/",
+            "status": "Activo"
+        },
+        {
+            "name": "reconocimiento-de-creditos-por-ee-acreditadas-en-programas-educativos-cursados-previamente",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/reconocimiento-de-creditos-por-ee-acreditadas-en-programas-educativos-cursados-previamente/",
+            "status": "Activo"
+        },
+        {
+            "name": "transferencia-de-creditos-para-el-afel-a-traves-de-las-ee-de-centros-de-idiomas",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/transferencia-de-creditos-para-el-afel-a-traves-de-las-ee-de-centros-de-idiomas/",
+            "status": "Activo"
+        },
+        {
+            "name": "movilidad-estudiantil-institucional",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/movilidad-estudiantil-institucional/",
+            "status": "Activo"
+        },
+        {
+            "name": "movilidad-estudiantil-nacional",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/movilidad-estudiantil-nacional/",
+            "status": "Activo"
+        },
+        {
+            "name": "movilidad-estudiantil-internacional",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/movilidad-estudiantil-internacional",
+            "status": "Activo"
+        },
+        {
+            "name": "cumplimiento-de-servicio-social",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/cumplimiento-de-servicio-social/",
+            "status": "Activo"
+        },
+        {
+            "name": "acreditacion-de-la-experiencia-recepcional",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/acreditacion-de-la-experiencia-recepcional/",
+            "status": "Activo"
+        },
+        {
+            "name": "certificado-de-estudios-completo-o-incompleto",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/certificado-de-estudios-completo-o-incompleto",
+            "status": "Activo"
+        },
+        {
+            "name": "legalizacion-de-certificados-de-estudio",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/legalizacion-de-certificados-de-estudio",
+            "status": "Activo"
+        },
+        {
+            "name": "expedicion-de-titulo-diploma-y-grado-academico",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/expedicion-de-titulo-diploma-y-grado-academico",
+            "status": "Activo"
+        },
+        {
+            "name": "cedula-profesional",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/cedula-profesional",
+            "status": "Activo"
+        },
+        {
+            "name": "registro-de-inicio-y-liberacion-del-servicio-social",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/registro-de-inicio-y-liberacion-del-servicio-social/",
+            "status": "Activo"
+        },
+        {
+            "name": "autorizacion-de-examen-profesional-o-exencion",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/autorizacion-de-examen-profesional-o-exencion",
+            "status": "Activo"
+        },
+        {
+            "name": "expedicion-de-carta-de-pasante",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/expedicion-de-carta-de-pasante/",
+            "status": "Activo"
+        },
+        {
+            "name": "autorizacion-de-examen-de-grado",
+            "url": "https://www.uv.mx/estudiantes/tramites-escolares/autorizacion-de-examen-de-grado/",
+            "status": "Activo"
+        },
+        {
+            "name": "dgae/circulares",
+            "url": "https://www.uv.mx/dgae/circulares/",
+            "status": "Activo"
+        },
+        {
+            "name": "cuotas-del-comite-pro-mejoras",
+            "url": "https://www.uv.mx/secretariaacademica/cuotas-del-comite-pro-mejoras/",
+            "status": "Activo"
+        },
+        {
+            "name": "comite-pro-mejoras",
+            "url": "https://www.uv.mx/transparencia/ot875/comite-pro-mejoras",
+            "status": "Activo"
+        },
+        {
+            "name": "informes-de-situacion-financiera",
+            "url": "https://www.uv.mx/orizaba/negocios/informes-de-situacion-financiera/",
+            "status": "Activo"
+        },
+        {
+            "name": "Convocatoria EGEL",
+            "url": "https://www.uv.mx/escolar/egelnacional-2026-1/convocatoria/index.html",
+            "status": "Activo"
+        }
+    ],
+    "pdfs": [
+        {
+            "filename": "RComitesProMejoras2023_1.pdf",
+            "path": "data/uploads\\RComitesProMejoras2023_1.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Estatuto-Alumnos-28-05-2021.pdf",
+            "path": "data/uploads\\Estatuto-Alumnos-28-05-2021.pdf",
+            "status": "Activo"
+        }
+    ]
+}

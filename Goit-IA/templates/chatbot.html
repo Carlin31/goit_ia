@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Chat | Goit-IA{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+{% endblock %}
+
+{% block content %}
+<div id="chat-container">
+    <div class="chat-header">
+        Conversación con Goit-IA
+    </div>
+    
+    <div class="chat-messages" id="chat-messages-container">
+        <div class="message bot">
+            ¡Hola! Soy Goit-IA. Pregúntame lo que necesites sobre la FNT.
+        </div>
+    </div>
+    
+    <div class="loading-face" id="loading-face">
+        (•‿•) <br><span>Pensando...</span>
+    </div>
+
+    <div class="regenerate-container">
+        <button id="btn-regenerate" class="regenerate-btn">
+            🔄 Generar otra respuesta
+        </button>
+    </div>
+    
+    <form class="chat-input" id="chat-form">
+        <input type="text" id="chat-input-field" placeholder="Escribe tu mensaje aquí..." required autocomplete="off">
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+
+<div id="accessModal" class="access-overlay">
+    <div class="access-box">
+        
+        <div id="step-program-selection">
+            <div class="access-title">🎓 Bienvenido a Goit-IA</div>
+            <p class="access-desc">
+                Para iniciar el chat, por favor selecciona tu <strong>Programa Educativo</strong>.
+            </p>
+            
+            <div class="programs-grid">
+                <button class="program-btn" onclick="goToDisclaimer('Ingeniería de Software')">
+                    💻 Ing. Software
+                </button>
+                <button class="program-btn" onclick="goToDisclaimer('TI Organizaciones')">
+                    📡 Tecnologías (TI)
+                </button>
+                <button class="program-btn" onclick="goToDisclaimer('Administración')">
+                    📊 Administración
+                </button>
+                <button class="program-btn" onclick="goToDisclaimer('Contabilidad')">
+                    💰 Contabilidad
+                </button>
+                <button class="program-btn" onclick="goToDisclaimer('Gestión')">
+                    📋 Gestión
+                </button>
+                <button class="program-btn" onclick="goToDisclaimer('Ciencias Políticas')">
+                    ⚖️ Ciencias Políticas
+                </button>
+            </div>
+        </div>
+
+        <div id="step-disclaimer" class="disclaimer-step">
+            <div class="access-title disclaimer-title">⚠️ Información Importante</div>
+            
+            <div class="disclaimer-note">
+                <p>
+                    <strong>Nota sobre las respuestas:</strong><br>
+                    Si la respuesta generada no es correcta o no se adapta a lo que necesitas, por favor utiliza el botón:
+                </p>
+                <div class="fake-btn-container">
+                    <span class="fake-btn-label">🔄 Generar otra respuesta</span>
+                </div>
+                <p>Esto ayudará a Goit-IA a brindarte una respuesta más acertada.</p>
+            </div>
+
+            <div class="terms-container">
+                <input type="checkbox" id="terms-check" onchange="toggleContinueButton()">
+                <label for="terms-check">
+                    He leído y acepto los 
+                    <a href="{{ url_for('privacidad.privacidad') }}" target="_blank">
+                        términos y condiciones
+                    </a> 
+                    vinculados al aviso de privacidad del sistema.
+                </label>
+            </div>
+
+            <button id="btn-continue-chat" class="program-btn btn-continue" disabled onclick="finalizeLogin()">
+                Continuar al Chat
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+{% endblock %}

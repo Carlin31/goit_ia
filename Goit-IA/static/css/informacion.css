@@ -1,0 +1,620 @@
+/* static/css/informacion.css */
+
+.info-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+/* --- Sección 1: Cards --- */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.card {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Estilo para el contenedor del icono SVG */
+.card-icon-wrapper {
+    margin-bottom: 1rem;
+    color: var(--primary-color, #007bff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px; 
+    width: 60px;
+}
+
+/* ESTO ASEGURA QUE TUS SVG TENGAN EL TAMAÑO CORRECTO */
+.card-icon-wrapper svg {
+    width: 48px;
+    height: 48px;
+    stroke-width: 1.5; /* Ajusta el grosor de línea si usas iconos de línea */
+}
+/* Fallback para el emoji si no pones SVG aun */
+.icon-placeholder {
+    font-size: 2.5rem;
+}
+
+.card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary, #333);
+}
+
+.card p {
+    color: var(--text-secondary, #666);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* --- Sección 2: Tutorial Regenerar --- */
+#regen-tutorial {
+    display: flex;
+    justify-content: center;
+}
+
+.tutorial-box {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, rgba(var(--primary-rgb, 0,123,255), 0.05), transparent);
+    border: 1px dashed var(--border-color, #ccc);
+    padding: 1.5rem 2rem;
+    border-radius: 50px;
+    max-width: 800px;
+}
+
+.tutorial-icon-wrapper {
+    color: var(--primary-color, #007bff);
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    min-width: 50px; /* Evita que se aplaste */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.tutorial-icon-wrapper svg {
+    width: 24px;
+    height: 24px;
+}
+
+.tutorial-content h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+    color: var(--text-primary, #333);
+}
+
+.tutorial-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary, #555);
+}
+
+/* --- Sección 3: Tech Stack --- */
+.tech-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.tech-card {
+    background: var(--bg-card, #f8f9fa);
+    padding: 2rem;
+    border-radius: 16px;
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.tech-card:hover {
+    border-color: var(--primary-color, #007bff);
+}
+
+.tech-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.step-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    opacity: 0.1;
+    color: var(--text-primary, #000);
+    line-height: 1;
+}
+
+.mini-icon {
+    color: var(--primary-color, #007bff);
+    opacity: 0.8;
+}
+
+.mini-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+/* Estilo especial para la tarjeta final "Full Span" */
+.full-span {
+    grid-column: 1 / -1;
+    background: var(--secondary-bg-color, #fff);
+    border: 1px solid var(--border-color, #e0e0e0);
+    text-align: center;
+}
+
+.tech-header-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.mini-icon.large svg {
+    width: 48px;
+    height: 48px;
+    color: var(--primary-color, #007bff);
+}
+
+.step-badge {
+    font-size: 0.8rem;
+    background: var(--primary-color, #007bff);
+    color: #fff;
+    padding: 0.2rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* --- Sección 4: Lista y Tópicos --- */
+.features-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.features-list li {
+    background: rgba(var(--primary-rgb, 0,0,0), 0.03);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-primary, #333);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.list-icon-slot svg {
+    width: 18px;
+    height: 18px;
+    color: var(--success-color, #28a745); /* Verde para checks */
+}
+
+.topics-wrapper {
+    text-align: center;
+}
+
+.topics-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.topic-tag {
+    background-color: #fff;
+    border: 1px solid var(--border-color, #ddd);
+    color: var(--text-secondary, #555);
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    cursor: default;
+}
+
+.topic-tag:hover {
+    background-color: var(--primary-color, #007bff);
+    color: #fff;
+    border-color: var(--primary-color, #007bff);
+    transform: scale(1.05);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .tech-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tutorial-box {
+        flex-direction: column;
+        text-align: center;
+        border-radius: 20px;
+    }
+}
+
+/* --- SECCIÓN 4: BENTO GRID (Alcance y Conocimiento) --- */
+
+/* Contenedor de la grilla */
+.bento-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Columna izquierda estrecha, derecha amplia */
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Estilo base de las tarjetas Bento */
+.bento-card {
+    background: var(--secondary-bg-color);
+    /* Opcional: bajar opacidad si el fondo base tiene texturas */
+    opacity: 0.98;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden; /* Para que la imagen no se salga */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bento-card:hover {
+    box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+    transform: translateY(-3px);
+    border-color: var(--primary-color, #007bff);
+}
+
+/* --- TARJETA 1: VISUAL (Imagen/Gradiente) --- */
+.visual-card {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3; /* Ocupa todo el alto de la izquierda */
+    
+    /* Fallback por si no carga la imagen del HTML */
+    background: linear-gradient(135deg, var(--primary-color, #007bff), #0056b3);
+    
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Texto abajo */
+}
+
+/* Opcional: Si usas una imagen real, agrega una capa oscura para leer el texto */
+.visual-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    z-index: 1;
+}
+
+.visual-content {
+    position: relative;
+    z-index: 2; /* Encima del overlay */
+}
+
+.visual-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.visual-content p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1rem;
+}
+
+/* --- TARJETA 2: CARACTERÍSTICAS (Lista) --- */
+.features-card {
+    grid-column: 2 / 3;
+}
+
+.modern-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.modern-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.list-icon {
+    background: rgba(var(--primary-rgb, 0,123,255), 0.1);
+    color: var(--primary-color, #007bff);
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+}
+
+.list-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.modern-list strong {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--text-primary, #333);
+    margin-bottom: 0.2rem;
+}
+
+.modern-list span {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #666);
+}
+
+/* --- TARJETA 3: NUBE DE TÓPICOS --- */
+.topics-card {
+    grid-column: 2 / 3;
+    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+}
+
+.topics-header {
+    display: flex;
+    justify-content: center; /* Centrado activo */
+    align-items: center;
+    margin-bottom: 1.5rem;
+    text-align: center;      /* Asegura el centrado del texto */
+    width: 100%;             /* Asegura que ocupe todo el ancho */
+}
+
+.topics-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+/* Badge animado "Activo" */
+.pulse-badge {
+    background: #d4edda;
+    color: #155724;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pulse-badge::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #28a745;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(40, 167, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+
+.topics-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.topic-tag {
+    background-color: #fff;
+    border: 1px solid var(--border-color, #ddd);
+    color: var(--text-secondary, #555);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px; /* Menos redondo, más tech */
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+/* Destacar temas importantes */
+.topic-tag.highlight {
+    background-color: rgba(var(--primary-rgb, 0,123,255), 0.05);
+    border-color: rgba(var(--primary-rgb, 0,123,255), 0.2);
+    color: var(--primary-color, #007bff);
+}
+
+.topic-tag:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color, #007bff);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb, 0,123,255), 0.15);
+}
+
+/* --- RESPONSIVIDAD --- */
+@media (max-width: 900px) {
+    .bento-grid {
+        grid-template-columns: 1fr; /* Una sola columna en tablet/móvil */
+        grid-template-rows: auto;
+    }
+    
+    .visual-card {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        min-height: 250px; /* Altura mínima para que se vea la imagen */
+    }
+    
+    .features-card, .topics-card {
+        grid-column: 1 / -1;
+    }
+}
+
+/* ========================================= */
+/* --- OVERRIDES PARA MODO OSCURO (AÑADIDO) --- */
+/* ========================================= */
+
+/* 1. Fondo de la tarjeta de temas (reemplaza el gradiente blanco) */
+body.dark-mode .topics-card {
+    background: linear-gradient(to bottom right, #1e1e1e, #252525);
+    border-color: #404040;
+}
+
+/* 2. Título de la tarjeta en oscuro */
+body.dark-mode .topics-header h3 {
+    color: #f0f0f0; /* Blanco suave */
+}
+
+/* 3. Etiquetas (Tags) en estado normal */
+body.dark-mode .topic-tag {
+    background-color: #2c2c2c;
+    border-color: #444;
+    color: #d1d1d1;
+}
+
+/* 4. Etiquetas al pasar el mouse (Hover) */
+body.dark-mode .topic-tag:hover {
+    background-color: var(--primary-color, #007bff);
+    border-color: var(--primary-color, #007bff);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Sombra más oscura */
+}
+
+/* ========================================= */
+/* --- MODO OSCURO PARA INFORMACION.HTML --- */
+/* ========================================= */
+
+:root.dark-mode .card {
+    background: #1e1e28; /* --secondary-bg-color aproximado */
+    border-color: var(--border-color);
+}
+
+:root.dark-mode .card h3 {
+    color: var(--text-color);
+}
+
+:root.dark-mode .card p {
+    color: var(--text-secondary);
+}
+
+/* Sección Tutorial */
+:root.dark-mode .tutorial-box {
+    background: linear-gradient(135deg, rgba(10, 132, 255, 0.1), transparent);
+    border-color: #3a3a4a;
+}
+
+:root.dark-mode .tutorial-icon-wrapper {
+    background: #2c2c3a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* Tech Stack */
+:root.dark-mode .tech-card {
+    background: #1e1e28;
+    border-color: transparent;
+}
+
+:root.dark-mode .tech-card:hover {
+    border-color: var(--primary-color);
+}
+
+:root.dark-mode .step-number {
+    color: #ffffff;
+    opacity: 0.15;
+}
+
+:root.dark-mode .full-span {
+    background: #1e1e28;
+    border-color: var(--border-color);
+}
+
+/* Características (Bento List) */
+:root.dark-mode .modern-list strong {
+    color: var(--text-color);
+}
+
+:root.dark-mode .modern-list span {
+    color: var(--text-secondary);
+}
+
+:root.dark-mode .list-icon {
+    background: rgba(10, 132, 255, 0.15); /* Azul más vibrante para contraste */
+}
+
+/* Features List (Sección 4 anterior) */
+:root.dark-mode .features-list li {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+}
+
+/* ========================================= */
+/* --- AJUSTES ESPECÍFICOS MODO OSCURO --- */
+/* ========================================= */
+
+/* 1. Corrección para Títulos de Secciones (imagen 2) */
+:root.dark-mode .tutorial-content h4 {
+    color: var(--text-color, #EFEFF1); /* Asegura que el título sea blanco/claro */
+}
+
+:root.dark-mode .tutorial-content p {
+    color: var(--text-secondary, #9a9aab); /* Texto descriptivo suave */
+}
+
+/* 2. Corrección para Tech Cards (imagen 3) */
+:root.dark-mode .tech-card h4 {
+    color: var(--text-color, #EFEFF1);
+}
+
+:root.dark-mode .tech-card p {
+    color: var(--text-secondary, #9a9aab);
+}
+
+:root.dark-mode .tech-card p em {
+    color: var(--primary-color); /* Resalta 'K-Nearest Neighbors' */
+    font-style: normal;
+}
+
+/* 3. Corrección para Temas Entrenados / Topic Tags (imagen 1) */
+:root.dark-mode .topics-card {
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+}
+
+:root.dark-mode .topic-tag {
+    background-color: #2c2c3a; /* Fondo oscuro para la etiqueta */
+    border-color: #444;
+    color: #d1d1d1; /* Texto gris claro */
+}
+
+:root.dark-mode .topic-tag:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border-color: var(--primary-color);
+}

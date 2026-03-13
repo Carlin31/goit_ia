@@ -1,0 +1,27 @@
+/* static/css/inicio.css */
+
+#inicio-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 70vh;
+}
+
+#inicio-section .logo-grande { margin-bottom: 1.5rem; }
+
+/* Lógica de logos Claro/Oscuro en Inicio */
+#inicio-section .logo-grande img { height: 250px; width: auto; }
+.logo-dark-mode { display: none; }
+.logo-light-mode { display: inline-block; }
+:root.dark-mode .logo-dark-mode { display: inline-block; }
+:root.dark-mode .logo-light-mode { display: none; }
+
+#inicio-section h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 600; }
+#inicio-section p { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem; }
+
+@media (max-width: 768px) {
+    #inicio-section .logo-grande img { height: 180px; } /* Ajuste responsivo extra */
+    #inicio-section h1 { font-size: 2rem; }
+}

@@ -1,0 +1,329 @@
+/* static/css/base.css */
+
+/* --- Importación de Fuente --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* --- Variables (Colores y Temas) --- */
+:root {
+    /* MODO CLARO */
+    --bg-color: #FFFFFF;
+    /* Degradado sutil de blanco a un gris azulado muy suave */
+    --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #F8F9FD 100%);
+    --secondary-bg-color: #F4F4F7;
+    --text-color: #12121B;
+    --text-secondary: #5a5a6a;
+    --border-color: #E0E0E0;
+    --primary-color: #007AFF;
+    --primary-text: #FFFFFF;
+    
+    /* Variables específicas para inputs/chat */
+    --chat-bubble-bot: var(--secondary-bg-color);
+    --chat-bubble-user: var(--primary-color);
+}
+
+:root.dark-mode {
+    /* MODO OSCURO */
+    --bg-color: #12121B;
+    /* Degradado de negro azulado profundo a un tono ligeramente más claro/púrpura */
+    --bg-gradient: linear-gradient(135deg, #12121B 0%, #1A1A2E 100%);
+    --secondary-bg-color: #1E1E28;
+    --text-color: #EFEFF1;
+    --text-secondary: #9a9aab;
+    --border-color: #3A3A4A;
+    --primary-color: #0A84FF;
+    --primary-text: #FFFFFF;
+    
+    --chat-bubble-bot: var(--secondary-bg-color);
+    --chat-bubble-user: var(--primary-color);
+}
+
+/* --- Globales --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Usamos el degradado como fondo principal */
+    background: var(--bg-gradient);
+    /* Aseguramos que el degradado cubra toda la pantalla incluso si hay poco contenido */
+    background-attachment: fixed; 
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a { color: var(--primary-color); text-decoration: none; transition: opacity 0.2s ease; }
+a:hover { opacity: 0.8; }
+img { max-width: 100%; display: block; }
+
+main {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+/* --- Header y Nav --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--secondary-bg-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.logo a { display: inline-block; }
+.logo img { height: 32px; width: auto; vertical-align: middle; }
+
+/* Lógica General de Logos (Header) */
+.logo-dark-mode { display: none; }
+.logo-light-mode { display: inline-block; }
+
+:root.dark-mode .logo-dark-mode { display: inline-block !important; }
+:root.dark-mode .logo-light-mode { display: none !important; }
+
+
+/* Navegación */
+nav ul { display: flex; list-style: none; gap: 1.5rem; }
+
+nav a { 
+    font-weight: 400; 
+    color: var(--text-secondary); 
+    transition: color 0.2s ease;
+}
+nav a:hover { color: var(--primary-color); opacity: 1; }
+nav a.active { color: var(--primary-color); font-weight: 600; }
+
+/* --- Theme Switch --- */
+.theme-switch {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 1.5rem;
+    color: var(--text-secondary);
+}
+.theme-switch input[type="checkbox"] { display: none; }
+.theme-switch .sun-icon, .theme-switch .moon-icon { stroke: currentColor; }
+
+.theme-switch .moon-icon { display: none; }
+.theme-switch .sun-icon { display: inline-block; }
+.theme-switch input:checked ~ .moon-icon { display: inline-block; }
+.theme-switch input:checked ~ .sun-icon { display: none; }
+
+/* --- Componentes Reutilizables --- */
+.cta-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background-color: var(--primary-color);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+    color: var(--primary-text);
+    opacity: 1;
+}
+
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-header h2 { font-size: 2.5rem; font-weight: 600; }
+.section-header p { font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 0.5rem auto 0; }
+
+
+/* --- Footer General --- */
+.site-footer {
+    background-color: var(--secondary-bg-color);
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    padding: 3rem 1.5rem 1rem;
+    margin-top: auto;
+    font-size: 0.85rem;
+    text-align: left; /* Generalmente a la izquierda */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr; /* 4 columnas */
+    gap: 2rem;
+    padding-bottom: 2rem;
+    align-items: start;
+}
+
+/* Estilos de Columnas Footer */
+.footer-col h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--text-color);
+}
+
+.footer-col ul { list-style: none; padding: 0; }
+.footer-col ul li { margin-bottom: 0.4rem; }
+
+.footer-col a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.footer-col a:hover { color: var(--primary-color); }
+
+.brand-col .footer-desc {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 300px;
+    margin-top: 0.5rem;
+}
+
+.footer-logo img { height: 32px; margin-bottom: 0.5rem; }
+
+/* Redes Sociales (Generales - alineadas a la izquierda) */
+.social-icons {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: flex-start;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;       
+    height: 36px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+}
+
+/* --- SECCIÓN FACULTAD (Columna 4 - Centrada y Compacta) --- */
+
+/* Sobrescribimos el comportamiento solo para esta columna */
+.footer-col.faculty-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente todo el contenido */
+    text-align: center;  /* Centra el texto interno */
+}
+
+/* Contenedor del Logo de Facultad */
+.faculty-logo {
+    margin-bottom: 0.5rem;
+    width: 100%;
+    max-width: 65px;
+    justify-content: center; /* Centra la imagen */
+}
+
+.faculty-logo img {
+    max-width: 100px; /* Logo más pequeño */
+    height: auto;
+}
+
+/* --- SOLUCIÓN DE DUPLICADOS PARA FACULTAD --- */
+.faculty-logo .logo-dark-mode { display: none !important; }
+.faculty-logo .logo-light-mode { display: block !important; }
+
+:root.dark-mode .faculty-logo .logo-light-mode { display: none !important; }
+:root.dark-mode .faculty-logo .logo-dark-mode { display: block !important; }
+
+/* Texto de la Facultad (Compacto y Centrado) */
+.faculty-text {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+    max-width: 220px; /* Evita que se estire demasiado */
+}
+
+.faculty-text strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* Iconos de Facultad (Centrados) */
+.social-icons.faculty-icons {
+    gap: 0.6rem;
+    justify-content: center; /* IMPORTANTE: Centra los iconos horizontalmente */
+    width: 100%;
+}
+
+.social-icons.faculty-icons a {
+    width: 30px; /* Iconos un poco más pequeños para esta sección */
+    height: 30px;
+    padding: 0;
+}
+
+
+/* --- Footer Bottom (Copyright) --- */
+.footer-bottom {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    text-align: left;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* --- Responsivo --- */
+@media (max-width: 900px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    header { flex-direction: column; gap: 1rem; padding: 1rem; align-items: stretch; }
+    .logo { text-align: center; } 
+    nav ul { gap: 1rem; justify-content: center; width: 100%; flex-wrap: wrap; }
+    
+    .theme-switch { position: absolute; top: 1.25rem; right: 1rem; margin: 0; }
+
+    main { margin: 1rem auto; padding: 0 1rem; }
+    .section-header h2 { font-size: 2rem; }
+
+    /* Footer Móvil */
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center; /* En móvil todo centrado suele verse mejor */
+    }
+
+    /* En móvil, aseguramos que todas las columnas se centren si se desea, 
+       o forzamos alineación izquierda si prefieres consistencia */
+    .site-footer { text-align: left; }
+    .footer-col { align-items: flex-start; }
+    
+    /* Pero la columna facultad MANTIENE su centrado */
+    .footer-col.faculty-col { align-items: center; }
+
+    .footer-col.brand-col {
+        align-items: center; /* Centra el logo y el bloque de texto */
+        text-align: center;  /* Centra el texto dentro del párrafo */
+        width: 100%;         /* Asegura que ocupe el ancho disponible */
+    }
+
+    .brand-col .footer-desc {
+        margin-left: auto;   /* Centra el bloque del párrafo */
+        margin-right: auto;
+    }
+}
+

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio de Sesión - Administración{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="login-header">
+            <h2>Acceso Administrativo</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Ingresa tus credenciales para continuar</p>
+        </div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('admin.login') }}" class="login-form">
+            <div class="form-group">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="ej. admin" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="cta-button btn-full">Ingresar al Panel</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

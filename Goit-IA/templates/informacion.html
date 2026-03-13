@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}Información | Goit-IA{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/informacion.css') }}">
+    <style>
+        .visual-card {
+            /* Asegúrate de cambiar 'tu-foto-uv.jpg' por el nombre real de tu archivo en static/img */
+            background-image: url("{{ url_for('static', filename='images/usbi_ixtac.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="info-container">
+    
+    <section id="info-section">
+        <div class="section-header">
+            <h2>¿Cómo funciona?</h2>
+            <p>Goit-IA utiliza tecnología de vanguardia para entenderte y responderte al instante.</p>
+        </div>
+
+        <div class="cards-container">
+    <div class="card">
+        <div class="card-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+            </svg>
+        </div>
+        <h3>Rápido e Intuitivo</h3>
+        <p>Obtén respuestas instantáneas 24/7 sin esperar.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L1 8L12 14L23 8L12 2Z" />
+                <path d="M4.5 10.4V16.5C4.5 18.5 7.8 20 12 20C16.2 20 19.5 18.5 19.5 16.5V10.4L12 14.5L4.5 10.4Z" />
+            </svg>
+        </div>
+        <h3>Inteligencia Académica</h3>
+        <p>Entendemos el contexto escolar y administrativo para darte información precisa.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1Z" />
+            </svg>
+        </div>
+        <h3>Seguro y Privado</h3>
+        <p>Tus conversaciones son confidenciales y se manejan con seguridad.</p>
+    </div>
+</div>
+
+    </section>
+
+    <section id="regen-tutorial">
+        <div class="tutorial-box">
+            <div class="tutorial-icon-wrapper">
+                <span class="icon-placeholder">↺</span>
+            </div>
+            <div class="tutorial-content">
+                <h4>¿Necesitas otra perspectiva?</h4>
+                <p>Si la respuesta no es exactamente lo que buscabas, pulsa el botón <strong>"Generar otra respuesta"</strong>. El sistema reevaluará tu consulta para ofrecerte una mejor explicación.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech-stack">
+        <div class="section-header">
+            <h2>Ingeniería detrás de Goit-IA</h2>
+            <p>Un sistema de <strong>Razonamiento Semántico</strong> construido con arquitectura RAG.</p>
+        </div>
+
+        <div class="tech-grid">
+            <div class="tech-card">
+                <div class="tech-header">
+                    <span class="step-number">01</span>
+                    <div class="mini-icon">
+                        </div>
+                </div>
+                <h4>Búsqueda (KNN)</h4>
+                <p>Un modelo <em>K-Nearest Neighbors</em> realiza una búsqueda semántica para clasificar y encontrar la información oficial más relevante.</p>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-header">
+                    <span class="step-number">02</span>
+                    <div class="mini-icon">
+                        </div>
+                </div>
+                <h4>Generación (LLM)</h4>
+                <p>Un Modelo de Lenguaje Grande procesa los datos recuperados para redactar una respuesta natural y coherente.</p>
+            </div>
+
+            <div class="tech-card full-span">
+                <div class="tech-header-center">
+                    <div class="mini-icon large">
+                        </div>
+                    <span class="step-badge">Sistema RAG</span>
+                </div>
+                <h4>Recuperación Aumentada</h4>
+                <p>La unión crea una respuesta perfecta: primero recuperamos datos precisos de los trámites y luego generamos la explicación ideal para ti.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="topics-section">
+        <div class="section-header">
+            <h2>Alcance y Conocimiento</h2>
+            <p>Entrenado con rigor académico para garantizar precisión y seguridad.</p>
+        </div>
+        
+        <div class="bento-grid">
+            
+            <div class="bento-card visual-card">
+                <div class="visual-content">
+                    <h3>Base de Conocimiento FNT</h3>
+                    <p>Conectando reglamentos oficiales con tus dudas diarias.</p>
+                </div>
+                <div class="visual-overlay"></div> 
+            </div>
+
+            <div class="bento-card features-card">
+                <ul class="modern-list">
+                    <li>
+                        <div class="list-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-5.266-2.475c-2.71.69-3.763 1.638-3.763 2.863 0 1.226 1.054 2.174 3.763 2.863 1.956.495 4.39 1.144 6.784 1.83m0-5.06a49.771 49.771 0 0115.482 0m0 0c1.377.348 2.76.686 4.143 1.02m-4.143-1.02c2.71.69 3.763 1.638 3.763 2.863 0 1.226-1.054 2.174-3.763 2.863-1.78.452-3.957 1.03-6.143 1.639M8.5 4.5a2.5 2.5 0 00-2.5 2.5H18a2.5 2.5 0 00-2.5-2.5H8.5z" /></svg>
+                        </div>
+                        <div>
+                            <strong>Enfoque Académico</strong>
+                            <span>Prioridad en fuentes oficiales y estatutos.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" /></svg>
+                        </div>
+                        <div>
+                            <strong>Sin Alucinaciones</strong>
+                            <span>Filtros éticos para respuestas veraces.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" /></svg>
+                        </div>
+                        <div>
+                            <strong>Contexto Inteligente</strong>
+                            <span>Adaptación a temas financieros o escolares.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bento-card topics-card">
+                <div class="topics-header">
+                    <h3>Temas Entrenados</h3>
+                </div>
+                <div class="topics-cloud">
+                    <span class="topic-tag">Trámites Escolares</span>
+                    <span class="topic-tag">Inscripción</span>
+                    <span class="topic-tag">Estatuto de Alumnos</span>
+                    <span class="topic-tag">Servicio Social</span>
+                    <span class="topic-tag">Titulación</span>
+                    <span class="topic-tag">Movilidad</span>
+                    <span class="topic-tag">Seguro Facultativo</span>
+                    <span class="topic-tag">Bajas</span>
+                    <span class="topic-tag">Pagos y Cuotas</span>
+                    <span class="topic-tag">ESI (Salud)</span>
+                    <span class="topic-tag">Certificados</span>
+                </div>
+            </div>
+        </div>
+        </section>
+</div>
+{% endblock %}
