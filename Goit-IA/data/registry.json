@@ -199,13 +199,123 @@
     ],
     "pdfs": [
         {
-            "filename": "RComitesProMejoras2023_1.pdf",
-            "path": "data/uploads\\RComitesProMejoras2023_1.pdf",
+            "filename": "Area_de_Formacion_de_Eleccion_Libre_AFEL.pdf",
+            "path": "data/uploads/Area_de_Formacion_de_Eleccion_Libre_AFEL.pdf",
             "status": "Activo"
         },
         {
-            "filename": "Estatuto-Alumnos-28-05-2021.pdf",
-            "path": "data/uploads\\Estatuto-Alumnos-28-05-2021.pdf",
+            "filename": "Baja_Definitiva.pdf",
+            "path": "data/uploads/Baja_Definitiva.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Baja_temporal_extemporanea.pdf",
+            "path": "data/uploads/Baja_temporal_extemporanea.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Baja_temporal_por_experiencia_educativa.pdf",
+            "path": "data/uploads/Baja_temporal_por_experiencia_educativa.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Baja_temporal_por_periodo_escolar.pdf",
+            "path": "data/uploads/Baja_temporal_por_periodo_escolar.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Cambios_de_programa_educativo.pdf",
+            "path": "data/uploads/Cambios_de_programa_educativo.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Carga_masiva_de_fichas_escolares_SUBES.pdf",
+            "path": "data/uploads/Carga_masiva_de_fichas_escolares_SUBES.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Certificado_de_estudios_completo_o_incompleto.pdf",
+            "path": "data/uploads/Certificado_de_estudios_completo_o_incompleto.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "CREDENCIAL_ESTUDIANTE.pdf",
+            "path": "data/uploads/CREDENCIAL_ESTUDIANTE.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Cuotas_pro-mejoras.pdf",
+            "path": "data/uploads/Cuotas_pro-mejoras.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Equivalencia_o_revalidacion_de_estudios.pdf",
+            "path": "data/uploads/Equivalencia_o_revalidacion_de_estudios.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Estatuto_Alumno.pdf",
+            "path": "data/uploads/Estatuto_Alumno.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "EVALUACION_DOCENTE.pdf",
+            "path": "data/uploads/EVALUACION_DOCENTE.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "EVALUACION-AL-DESEMPENO-DOCENTE-Estudiantes-y-Consejo-Tecnico-Publicado-para-Periodo-2021-2023.pdf",
+            "path": "data/uploads/EVALUACION-AL-DESEMPENO-DOCENTE-Estudiantes-y-Consejo-Tecnico-Publicado-para-Periodo-2021-2023.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Examen_de_Demostracion_de_Competencias.pdf",
+            "path": "data/uploads/Examen_de_Demostracion_de_Competencias.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Expedicion_de_Titulo_Diploma_y_Grado_Academico.pdf",
+            "path": "data/uploads/Expedicion_de_Titulo_Diploma_y_Grado_Academico.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Legalizacion_de_Certificados_de_Estudios.pdf",
+            "path": "data/uploads/Legalizacion_de_Certificados_de_Estudios.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "RComitesProMejoras2023_1.pdf",
+            "path": "data/uploads/RComitesProMejoras2023_1.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Reingreso.pdf",
+            "path": "data/uploads/Reingreso.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Seguro_facultativo.pdf",
+            "path": "data/uploads/Seguro_facultativo.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Tabulador-de-Cuotas-por-Serv.-Acad.-y-Admvos.-UV-febrero-2025.pdf",
+            "path": "data/uploads/Tabulador-de-Cuotas-por-Serv.-Acad.-y-Admvos.-UV-febrero-2025.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Tramite_de_Cedula_Profesional.pdf",
+            "path": "data/uploads/Tramite_de_Cedula_Profesional.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "transferencias_de_calificacion_en_EE_del_AFBG.pdf",
+            "path": "data/uploads/transferencias_de_calificacion_en_EE_del_AFBG.pdf",
+            "status": "Activo"
+        },
+        {
+            "filename": "Traslados.pdf",
+            "path": "data/uploads/Traslados.pdf",
             "status": "Activo"
         }
     ]
