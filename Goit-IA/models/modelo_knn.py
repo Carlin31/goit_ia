@@ -1,8 +1,12 @@
 # models/modelo_knn.py
 import os
 import sys
-from sentence_transformers import SentenceTransformer
+import numpy as np
 from sklearn.neighbors import NearestNeighbors
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # --- CONFIGURACIÓN DE RUTAS ---
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -13,12 +17,16 @@ if project_root not in sys.path:
 # --- IMPORTS DE BASE DE DATOS (MongoDB) ---
 from database import faq_collection
 
-# --- MODELO DE EMBEDDINGS ---
-# Se descarga automáticamente la primera vez (~120 MB)
-# Multilingüe, optimizado para similitud de frases en español
-print("🔄 Cargando modelo de embeddings...")
-modelo_embedding = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
-print("✅ Modelo de embeddings listo.")
+# --- MODELO DE EMBEDDINGS VÍA API ---
+# Sin descarga local — usa HuggingFace API con HF_TOKEN
+HF_TOKEN = os.getenv("HF_TOKEN")
+
+print("🔄 Conectando con API de embeddings (HuggingFace)...")
+modelo_embedding = HuggingFaceEndpointEmbeddings(
+    model="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    huggingfacehub_api_token=HF_TOKEN
+)
+print("✅ API de embeddings lista.")
 
 # --- VARIABLES GLOBALES DEL MODELO KNN ---
 knn_model = None
@@ -28,7 +36,7 @@ respuestas_knn = []
 def inicializar_knn():
     """
     Carga los datos desde MongoDB y entrena (o re-entrena) el modelo KNN
-    usando embeddings densos para similitud semántica real.
+    usando embeddings vía API de HuggingFace.
     """
     global knn_model, respuestas_knn
 
@@ -44,9 +52,8 @@ def inicializar_knn():
         preguntas = [doc['pregunta'] for doc in documentos]
         respuestas_knn = [doc['respuesta'] for doc in documentos]
 
-        # Convertir preguntas a embeddings densos
-        # (captura significado semántico, no solo palabras exactas)
-        X_dataset = modelo_embedding.encode(preguntas)
+        # Convertir preguntas a embeddings vía API
+        X_dataset = np.array(modelo_embedding.embed_documents(preguntas))
 
         # Entrenar KNN con métrica coseno sobre los embeddings
         knn_model = NearestNeighbors(n_neighbors=1, metric='cosine')
@@ -64,7 +71,7 @@ inicializar_knn()
 
 def obtener_respuesta_knn(pregunta_usuario):
     """
-    Busca en el modelo KNN usando embeddings semánticos.
+    Busca en el modelo KNN usando embeddings semánticos vía API.
     Retorna la respuesta más cercana y su distancia coseno.
     Distancia cercana a 0 = muy similar, cercana a 1 = muy diferente.
     """
@@ -74,9 +81,8 @@ def obtener_respuesta_knn(pregunta_usuario):
         return None, 1.0
 
     try:
-        # Convertir la pregunta del usuario a embedding
-        # No necesita limpieza de texto — el modelo entiende lenguaje natural directamente
-        X_usuario = modelo_embedding.encode([pregunta_usuario])
+        # Convertir pregunta del usuario a embedding vía API
+        X_usuario = np.array(modelo_embedding.embed_query(pregunta_usuario)).reshape(1, -1)
 
         distancias, indices = knn_model.kneighbors(X_usuario)
 
