@@ -1,29 +1,28 @@
 # ── Web Framework ──────────────────────────────────────────────
-Flask==3.1.1
-python-dotenv==1.2.2
+Flask
+python-dotenv
 
 # ── Base de datos ───────────────────────────────────────────────
-pymongo==4.12.1
+pymongo
 
 # ── LangChain ───────────────────────────────────────────────────
-langchain-core==1.2.19
-langchain-community==0.3.24
-langchain-groq==0.3.2
-langchain-huggingface==1.2.1
-langchain-chroma==0.2.4
-langchain-text-splitters==0.3.8
+langchain-community
+langchain-groq
+langchain-huggingface
+langchain-chroma
+langchain-text-splitters
 
 # ── Embeddings y vectores ────────────────────────────────────────
-huggingface_hub==1.7.1
-chromadb==1.0.0
+huggingface_hub
+chromadb
 
 # ── Scraping y carga de documentos ──────────────────────────────
-requests==2.32.5
-beautifulsoup4==4.13.4
-pypdf==5.5.0
-pdfplumber==0.11.6
+requests
+beautifulsoup4
+pypdf
+pdfplumber
 
 # ── Utilidades ───────────────────────────────────────────────────
-numpy==2.4.3
-pandas==3.0.1
-tqdm==4.67.3
+numpy
+pandas
+tqdm
