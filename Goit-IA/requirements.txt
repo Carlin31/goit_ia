@@ -1,24 +1,29 @@
-Flask==3.1.2
-langchain
-langchain-community
-langchain-core
-langchain-ollama
-langchain-text-splitters
-chromadb
-requests
-beautifulsoup4
-pandas
-nltk
-scikit-learn
-tqdm
-langchain-groq
-python-dotenv
-pypdf
-pymongo
-pandas
-langchain-huggingface
-sentence-transformers
-langchain-chroma
-pdfplumber
-PyPDF2>=3.0.0
-reportlab
+# ── Web Framework ──────────────────────────────────────────────
+Flask==3.1.1
+python-dotenv==1.2.2
+
+# ── Base de datos ───────────────────────────────────────────────
+pymongo==4.12.1
+
+# ── LangChain ───────────────────────────────────────────────────
+langchain-core==1.2.19
+langchain-community==0.3.24
+langchain-groq==0.3.2
+langchain-huggingface==1.2.1
+langchain-chroma==0.2.4
+langchain-text-splitters==0.3.8
+
+# ── Embeddings y vectores ────────────────────────────────────────
+huggingface_hub==1.7.1
+chromadb==1.0.0
+
+# ── Scraping y carga de documentos ──────────────────────────────
+requests==2.32.5
+beautifulsoup4==4.13.4
+pypdf==5.5.0
+pdfplumber==0.11.6
+
+# ── Utilidades ───────────────────────────────────────────────────
+numpy==2.4.3
+pandas==3.0.1
+tqdm==4.67.3
