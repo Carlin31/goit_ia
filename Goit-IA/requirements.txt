@@ -26,3 +26,4 @@ pdfplumber
 numpy
 pandas
 tqdm
+scikit-learn
