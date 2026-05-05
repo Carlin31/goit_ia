@@ -1,0 +1,462 @@
+/* static/css/informacion.css */
+
+.info-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+/* ─── Sección 1: Cards ──────────────────────────────────── */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    border-radius: 14px;
+    padding: 2rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(var(--primary-rgb), 0.3);
+}
+
+.card-icon-wrapper {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background: var(--primary-light);
+    border-radius: 14px;
+}
+
+.card-icon-wrapper svg { width: 28px; height: 28px; }
+
+.icon-placeholder { font-size: 2rem; }
+
+.card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.card p {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+/* ─── Sección 2: Tutorial Regenerar ────────────────────── */
+#regen-tutorial { display: flex; justify-content: center; }
+
+.tutorial-box {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--primary-light);
+    border: 1px dashed rgba(var(--primary-rgb), 0.35);
+    padding: 1.5rem 2rem;
+    border-radius: 50px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.tutorial-icon-wrapper {
+    color: var(--primary-color);
+    background: var(--bg-color);
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.tutorial-icon-wrapper svg { width: 24px; height: 24px; }
+
+.tutorial-content h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.tutorial-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* ─── Sección 3: Tech Stack ─────────────────────────────── */
+.tech-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.tech-card {
+    background: var(--secondary-bg-color);
+    padding: 2rem;
+    border-radius: 16px;
+    position: relative;
+    border: 1px solid var(--border-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tech-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.tech-card h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.tech-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+}
+
+.tech-card p em {
+    color: var(--primary-color);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.tech-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.step-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    opacity: 0.08;
+    color: var(--text-color);
+    line-height: 1;
+}
+
+.mini-icon { color: var(--primary-color); opacity: 0.85; }
+.mini-icon svg { width: 28px; height: 28px; }
+
+.full-span {
+    grid-column: 1 / -1;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.tech-header-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.mini-icon.large svg { width: 40px; height: 40px; }
+
+.step-badge {
+    font-size: 0.78rem;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 0.2rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* ─── Sección 4: Features & Topics ─────────────────────── */
+.features-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.features-list li {
+    background: var(--primary-light);
+    padding: 0.7rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.list-icon-slot svg {
+    width: 18px;
+    height: 18px;
+    color: var(--success-color);
+}
+
+.topics-wrapper { text-align: center; }
+
+.topics-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.topic-tag {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.45rem 1.1rem;
+    border-radius: 100px;
+    font-size: 0.88rem;
+    transition: all 0.2s ease;
+    cursor: default;
+    font-weight: 500;
+}
+
+.topic-tag:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    transform: scale(1.04);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.25);
+}
+
+/* ─── Bento Grid ────────────────────────────────────────── */
+.bento-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.bento-card {
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.bento-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    border-color: rgba(var(--primary-rgb), 0.3);
+}
+
+/* Tarjeta Visual (imagen + overlay) */
+.visual-card {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(18, 18, 27, 0.85), transparent 60%);
+    z-index: 1;
+}
+
+.visual-content {
+    position: relative;
+    z-index: 2;
+}
+
+.visual-content h3 { font-size: 1.6rem; margin-bottom: 0.4rem; color: #fff; }
+.visual-content p  { color: rgba(255, 255, 255, 0.85); font-size: 0.95rem; }
+
+/* Tarjeta Características */
+.features-card { grid-column: 2 / 3; }
+
+.modern-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.modern-list li { display: flex; align-items: flex-start; gap: 1rem; }
+
+.list-icon {
+    background: var(--primary-light);
+    color: var(--primary-color);
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+}
+
+.list-icon svg { width: 22px; height: 22px; }
+
+.modern-list strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 0.15rem;
+    font-weight: 600;
+}
+
+.modern-list span {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Tarjeta Topics */
+.topics-card {
+    grid-column: 2 / 3;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+}
+
+.topics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.topics-header h3 { margin: 0; font-size: 1.15rem; color: var(--text-color); }
+
+/* Badge "Activo" con pulso */
+.pulse-badge {
+    background: rgba(var(--success-color, 34, 197, 94), 0.12);
+    color: var(--success-color);
+    padding: 0.2rem 0.65rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pulse-badge::before {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    background: var(--success-color);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.45); }
+    70%  { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* ─── Responsive ────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .visual-card {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        min-height: 220px;
+    }
+
+    .features-card,
+    .topics-card { grid-column: 1 / -1; }
+}
+
+@media (max-width: 768px) {
+    .tech-grid { grid-template-columns: 1fr; }
+
+    .tutorial-box {
+        flex-direction: column;
+        text-align: center;
+        border-radius: 20px;
+        padding: 1.25rem;
+    }
+}
+
+/* ─── Dark Mode overrides ───────────────────────────────── */
+:root.dark-mode .topics-card {
+    background: var(--secondary-bg-color);
+    border-color: var(--border-color);
+}
+
+:root.dark-mode .topic-tag {
+    background-color: var(--surface-color);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+:root.dark-mode .topic-tag:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+:root.dark-mode .card {
+    background: var(--secondary-bg-color);
+    border-color: var(--border-color);
+}
+
+:root.dark-mode .tutorial-box {
+    background: rgba(var(--primary-rgb), 0.08);
+    border-color: rgba(var(--primary-rgb), 0.3);
+}
+
+:root.dark-mode .tutorial-icon-wrapper {
+    background: var(--surface-color);
+    border-color: var(--border-color);
+}
+
+:root.dark-mode .full-span {
+    background: var(--secondary-bg-color);
+    border-color: var(--border-color);
+}
+
+:root.dark-mode .list-icon { background: rgba(var(--primary-rgb), 0.15); }

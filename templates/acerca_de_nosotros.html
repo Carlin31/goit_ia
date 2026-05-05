@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Acerca de | Goit-IA{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/acerca_de.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="minimal-wrapper">
+    <section id="about-section">
+        <div class="about-content">
+            <h2>Nuestra Misión</h2>
+            <p class="origin-tag">Creemos en el poder de la inteligencia artificial para simplificar la vida académica. Nuestra misión es crear asistentes virtuales que sean genuinamente útiles y fáciles de usar para todos en la FNT.</p>
+            <p class="origin-tag">Este proyecto comenzó como una idea para mejorar el acceso a la información, y ha crecido para ser una plataforma robusta de asistencia estudiantil.</p>
+        </div>
+        <div class="about-image">
+            <img src="{{ url_for('static', filename='images/usbi_ixtac.jpg') }}" alt="Misión Goit-IA" class="img-minimal">
+        </div>
+    </section>
+
+    <section class="section-divider">
+        <h3>Propósito del Proyecto</h3>
+        <p class="origin-tag">Goit-IA busca transformar la gestión de información académica en la FNT, ofreciendo un canal de comunicación inteligente que resuelva dudas de forma inmediata y precisa, centralizando el conocimiento institucional para beneficio de la comunidad.</p>
+    </section>
+
+    <section class="section-divider">
+        <h3>Desarrollo y Equipo</h3>
+        <p class="origin-tag">El proyecto se inició dentro de la materia <strong>Innovación Tecnológica en las Organizaciones</strong>, donde se desarrolló un primer boceto conceptual. Posteriormente, este trabajo se fortaleció y evolucionó durante las <strong>prácticas profesionales y el servicio social</strong>, lo que permitió completar el desarrollo del sistema en su totalidad y llevarlo hasta una versión final lista para su lanzamiento.</p>
+        
+        <div class="team-minimal-grid">
+            <div class="team-item">
+                <h4>Encargado</h4>
+                <p class="name-highlight">Mtro. Martin Mancilla Gómez</p>
+                 <p class="subtitle">Académico de carrera titular de tiempo completo</p>
+            </div>
+
+            <div class="team-item">
+                <h4>Desarrollado por</h4>
+                <ul class="clean-list">
+                    <li>Armando Carrillo Rincón</li>
+                    <li>Rivká Hanna Hael Nava</li>
+                    <li>Carlos Aldair Velazquez Rodriguez</li>
+                </ul>
+            </div>
+
+            <div class="team-item">
+                <h4>QA y Soporte</h4>
+                <ul class="clean-list">
+                    <li>[Nombre Estudiante Fundador 1]</li>
+                    <li>[Nombre Estudiante Fundador 2]</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-divider footer-note">
+        <p>El proyecto se consolidó y terminó durante las etapas de <strong>Prácticas y Servicio Profesional</strong>, bajo la asesoría del encargado mencionado.</p>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Privacidad | Goit-IA{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/privacidad.css') }}">
+{% endblock %}
+
+{% block content %}
+<section id="privacy-section">
+    <div class="section-header">
+        <h2>Política de Privacidad</h2>
+    </div>
+    <div style="max-width: 800px; margin: auto;">
+        <p><strong>Última actualización:</strong> 2 de Noviembre de 2025</p>
+        <br>
+        <p>Bienvenido a Goit-IA. Estamos comprometidos con la protección de su privacidad. Este Acuerdo de Privacidad explica cómo recopilamos, usamos, almacenamos, compartimos y protegemos su información cuando utiliza nuestro sitio web.
+            Al utilizar nuestro Servicio, usted acepta la recopilación y el uso de información de acuerdo con esta política.</p>
+        <br>
+<h3>Recopilación de información</h3>
+        <p>Para que Goit-IA funcione, necesitamos guardar la información que nos das. Esto incluye tu correo electrónico si te registras, y el texto o 'prompts' que escribes para que la IA te responda. También guardamos datos básicos de cómo usas el servicio, como tu tipo de navegador o dirección IP, para mejorar la estabilidad.</p>
+        <br>
+        <h3>Uso de la información</h3>
+        <p>Usamos tu información para operar el servicio y responder a tus solicitudes. Lo más importante: usamos tus entradas (prompts) y las respuestas de la IA para entrenar y mejorar nuestros modelos, haciendo que Goit-IA sea más inteligente y preciso. No usamos tus datos personales para venderlos a terceros.</p>
+        <br>
+        <h3>Cómo compartimos la información</h3>
+        <p>No compartimos tu información personal con anunciantes. Solo compartimos datos con nuestros proveedores de servicios esenciales, como los servidores en la nube que alojan Goit-IA. Si usamos tecnología de IA de otra compañía, es posible que necesitemos enviarles tus 'prompts' para obtener una respuesta, pero siempre bajo acuerdos de confidencialidad.</p>
+        <br>
+        <h3>Seguridad de sus datos</h3>
+        <p>Nos tomamos la seguridad en serio. Usamos medidas técnicas como el cifrado para proteger tus datos mientras viajan por internet y cuando están almacenados. Sin embargo, ningún sistema es 100% seguro, por lo que no podemos garantizar la seguridad absoluta.</p>
+        <br>
+        <h3>Sus Derechos</h3>
+        <p>Tienes derecho a saber qué información tenemos sobre ti y a pedirnos que la corrijamos o la eliminemos. Dependiendo de tu ubicación, puedes tener otros derechos, como oponerte a que usemos tus datos para entrenar nuestros modelos. Puedes contactarnos para ejercer estos derechos.</p>
+        <br>
+        <h3>Cambios a esta política</h3>
+        <p>Podemos actualizar esta política de privacidad de vez en cuando. Cuando lo hagamos, publicaremos la nueva versión en esta página y actualizaremos la fecha. Te recomendamos revisar esta página periódicamente para estar informado.</p> </div>
+</section>
+{% endblock %}
