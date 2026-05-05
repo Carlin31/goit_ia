@@ -43,12 +43,25 @@ try:
     from data.admin_db import actualizar_base_datos_completa
     # Importamos la lógica de registro de usuarios (Estadísticas y Logs)
     from logic.access_tracker import obtener_estadisticas_diarias, obtener_todos_los_registros
+    from database import (
+        get_all_chat_logs, get_all_faq_admin,
+        insert_faq, update_faq_by_id, delete_faq_by_id, toggle_faq_block
+    )
+    from models import modelo_knn as _modelo_knn
 except ImportError as e:
     print(f"❌ Error importando módulos locales: {e}")
-    # Funciones vacías para evitar caídas si faltan archivos
     def obtener_estadisticas_diarias(): return {}
     def obtener_todos_los_registros(): return []
     def actualizar_base_datos_completa(reg): pass
+    def get_all_chat_logs(limit=500): return []
+    def get_all_faq_admin(): return []
+    def insert_faq(p, r): pass
+    def update_faq_by_id(i, p, r): return False
+    def delete_faq_by_id(i): return False
+    def toggle_faq_block(i): return False
+    class _modelo_knn:
+        @staticmethod
+        def inicializar_knn(): pass
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -120,12 +133,20 @@ def dashboard():
     
     # 2. Lista completa para la tabla detallada (Modal)
     access_logs = obtener_todos_los_registros()
-    
-    return render_template('admin/dashboard.html', 
-                           pdfs=registry.get('pdfs', []), 
+
+    # 3. Historial de preguntas por matrícula
+    chat_logs = get_all_chat_logs(limit=500)
+
+    # 4. FAQs para gestión en el panel
+    faqs = get_all_faq_admin()
+
+    return render_template('admin/dashboard.html',
+                           pdfs=registry.get('pdfs', []),
                            urls=registry.get('urls', []),
-                           stats=stats,           # <-- Datos para tarjetas
-                           access_logs=access_logs) # <-- Datos para tabla detallada
+                           stats=stats,
+                           access_logs=access_logs,
+                           chat_logs=chat_logs,
+                           faqs=faqs)
 
 # ==========================================
 # 5. GESTIÓN DE PDF (SUBIR, BORRAR, EDITAR)
@@ -339,11 +360,104 @@ def train_complete():
     Se llama vía AJAX cuando el streaming termina.
     """
     registry = load_registry()
-    
+
     # Actualizamos estados a 'Activo'
     if 'pdfs' in registry:
         for item in registry['pdfs']: item['status'] = 'Activo'
     for item in registry.get('urls', []): item['status'] = 'Activo'
-        
+
     save_registry(registry)
     return {"status": "ok", "message": "Estados actualizados"}
+
+# ==========================================
+# 8. GESTIÓN DE FAQs (JSON API)
+# ==========================================
+
+from flask import jsonify as _jsonify
+
+def _reload_knn():
+    """Recarga el modelo KNN después de cambios en las FAQs."""
+    try:
+        _modelo_knn.inicializar_knn()
+    except Exception as e:
+        print(f"⚠️ Error recargando KNN tras cambio en FAQ: {e}")
+
+
+@admin_bp.route('/faq/add', methods=['POST'])
+@login_required
+def faq_add():
+    data = request.get_json(silent=True) or {}
+    pregunta = (data.get('pregunta') or '').strip()
+    respuesta = (data.get('respuesta') or '').strip()
+
+    if not pregunta or not respuesta:
+        return _jsonify({"status": "error", "message": "Pregunta y respuesta son obligatorias."}), 400
+
+    try:
+        insert_faq(pregunta, respuesta)
+        _reload_knn()
+        return _jsonify({"status": "ok", "message": "FAQ agregada correctamente."})
+    except Exception as e:
+        return _jsonify({"status": "error", "message": str(e)}), 500
+
+
+@admin_bp.route('/faq/edit', methods=['POST'])
+@login_required
+def faq_edit():
+    data = request.get_json(silent=True) or {}
+    faq_id   = (data.get('id') or '').strip()
+    pregunta = (data.get('pregunta') or '').strip()
+    respuesta = (data.get('respuesta') or '').strip()
+
+    if not faq_id or not pregunta or not respuesta:
+        return _jsonify({"status": "error", "message": "ID, pregunta y respuesta son obligatorios."}), 400
+
+    try:
+        actualizado = update_faq_by_id(faq_id, pregunta, respuesta)
+        if not actualizado:
+            return _jsonify({"status": "error", "message": "No se encontró la FAQ."}), 404
+        _reload_knn()
+        return _jsonify({"status": "ok", "message": "FAQ actualizada correctamente."})
+    except Exception as e:
+        return _jsonify({"status": "error", "message": str(e)}), 500
+
+
+@admin_bp.route('/faq/delete', methods=['POST'])
+@login_required
+def faq_delete():
+    data = request.get_json(silent=True) or {}
+    faq_id = (data.get('id') or '').strip()
+
+    if not faq_id:
+        return _jsonify({"status": "error", "message": "ID requerido."}), 400
+
+    try:
+        eliminado = delete_faq_by_id(faq_id)
+        if not eliminado:
+            return _jsonify({"status": "error", "message": "No se encontró la FAQ."}), 404
+        _reload_knn()
+        return _jsonify({"status": "ok", "message": "FAQ eliminada correctamente."})
+    except Exception as e:
+        return _jsonify({"status": "error", "message": str(e)}), 500
+
+
+@admin_bp.route('/faq/toggle_block', methods=['POST'])
+@login_required
+def faq_toggle_block():
+    data = request.get_json(silent=True) or {}
+    faq_id = (data.get('id') or '').strip()
+
+    if not faq_id:
+        return _jsonify({"status": "error", "message": "ID requerido."}), 400
+
+    try:
+        nuevo_estado = toggle_faq_block(faq_id)
+        _reload_knn()
+        estado_texto = "bloqueada" if nuevo_estado else "desbloqueada"
+        return _jsonify({
+            "status": "ok",
+            "bloqueado": nuevo_estado,
+            "message": f"FAQ {estado_texto} correctamente."
+        })
+    except Exception as e:
+        return _jsonify({"status": "error", "message": str(e)}), 500

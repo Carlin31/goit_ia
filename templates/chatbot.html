@@ -7,74 +7,245 @@
 {% endblock %}
 
 {% block content %}
-<div id="chat-container">
+<div id="chat-container" role="main" aria-label="Conversación con Goit-IA">
+
     <div class="chat-header">
+        <!-- Ícono bot -->
+        <svg class="chat-header-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+             viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            <circle cx="9"  cy="16" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="15" cy="16" r="1" fill="currentColor" stroke="none"/>
+        </svg>
         Conversación con Goit-IA
     </div>
-    
-    <div class="chat-messages" id="chat-messages-container">
+
+    <div class="chat-messages" id="chat-messages-container" aria-live="polite" aria-label="Mensajes">
         <div class="message bot">
             ¡Hola! Soy Goit-IA. Pregúntame lo que necesites sobre la FNT.
         </div>
     </div>
-    
-    <div class="loading-face" id="loading-face">
-        (•‿•) <br><span>Pensando...</span>
+
+    <!-- Indicador de carga (reemplaza emoji por dots animados) -->
+    <div class="loading-face" id="loading-face" aria-live="polite" aria-label="Generando respuesta">
+        <div class="loading-inner">
+            <div class="loading-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="loading-text">Pensando...</span>
+        </div>
     </div>
 
     <div class="regenerate-container">
-        <button id="btn-regenerate" class="regenerate-btn">
-            🔄 Generar otra respuesta
+        <button id="btn-regenerate" class="regenerate-btn" aria-label="Generar otra respuesta">
+            <!-- Ícono refresh -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+                <polyline points="1 4 1 10 7 10"/>
+                <path d="M3.51 15a9 9 0 1 0 .49-3.5"/>
+            </svg>
+            Generar otra respuesta
         </button>
     </div>
-    
-    <form class="chat-input" id="chat-form">
-        <input type="text" id="chat-input-field" placeholder="Escribe tu mensaje aquí..." required autocomplete="off">
-        <button type="submit">Enviar</button>
+
+    <form class="chat-input" id="chat-form" aria-label="Enviar mensaje">
+        <label for="chat-input-field" class="sr-only">Escribe tu mensaje</label>
+        <input type="text" id="chat-input-field"
+               placeholder="Escribe tu mensaje aquí..."
+               required autocomplete="off"
+               aria-label="Campo de mensaje">
+        <button type="submit" aria-label="Enviar mensaje">
+            <!-- Ícono send -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+            <span class="send-label">Enviar</span>
+        </button>
     </form>
 </div>
 
-<div id="accessModal" class="access-overlay">
+<!-- Modal de acceso -->
+<div id="accessModal" class="access-overlay" role="dialog" aria-modal="true"
+     aria-labelledby="modal-title">
     <div class="access-box">
-        
+
+        <!-- Paso 0: Matrícula -->
+        <div id="step-matricula">
+            <div class="access-title" id="modal-title">
+                <!-- Ícono tarjeta/ID -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <rect x="2" y="5" width="20" height="14" rx="2"/>
+                    <line x1="2" y1="10" x2="22" y2="10"/>
+                </svg>
+                Identificación
+            </div>
+            <p class="access-desc">
+                Ingresa tu <strong>número de matrícula</strong> para continuar.<br>
+                <small style="opacity: 0.75;">Formato: S seguido de 8 dígitos — ej. S22022241</small>
+            </p>
+            <div class="matricula-group">
+                <input type="text" id="matricula-input" class="matricula-input"
+                       placeholder="S22022241"
+                       maxlength="9"
+                       autocomplete="off"
+                       spellcheck="false"
+                       aria-label="Número de matrícula">
+                <p id="matricula-error" class="matricula-error" style="display: none;">
+                    Formato inválido. Debe comenzar con "S" seguido de 8 dígitos (ej. S22022241).
+                </p>
+            </div>
+            <button class="program-btn btn-continue" onclick="validateMatricula()">
+                Continuar
+            </button>
+        </div>
+
+        <!-- Paso 1: Selección de Programa -->
         <div id="step-program-selection">
-            <div class="access-title">🎓 Bienvenido a Goit-IA</div>
+            <div class="access-title">
+                <!-- Ícono graduación -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                </svg>
+                Bienvenido a Goit-IA
+            </div>
             <p class="access-desc">
                 Para iniciar el chat, por favor selecciona tu <strong>Programa Educativo</strong>.
             </p>
-            
+
             <div class="programs-grid">
+
                 <button class="program-btn" onclick="goToDisclaimer('Ingeniería de Software')">
-                    💻 Ing. Software
+                    <!-- Ícono código -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <polyline points="16 18 22 12 16 6"/>
+                        <polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                    Ing. Software
                 </button>
+
                 <button class="program-btn" onclick="goToDisclaimer('TI Organizaciones')">
-                    📡 Tecnologías (TI)
+                    <!-- Ícono red/señal -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                        <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                        <circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/>
+                    </svg>
+                    Tecnologías (TI)
                 </button>
+
                 <button class="program-btn" onclick="goToDisclaimer('Administración')">
-                    📊 Administración
+                    <!-- Ícono maletín -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                    Administración
                 </button>
+
                 <button class="program-btn" onclick="goToDisclaimer('Contabilidad')">
-                    💰 Contabilidad
+                    <!-- Ícono moneda/contabilidad -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <line x1="12" y1="1" x2="12" y2="23"/>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                    Contabilidad
                 </button>
+
                 <button class="program-btn" onclick="goToDisclaimer('Gestión')">
-                    📋 Gestión
+                    <!-- Ícono clipboard/lista -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                        <line x1="9" y1="12" x2="15" y2="12"/>
+                        <line x1="9" y1="16" x2="13" y2="16"/>
+                    </svg>
+                    Gestión
                 </button>
+
                 <button class="program-btn" onclick="goToDisclaimer('Ciencias Políticas')">
-                    ⚖️ Ciencias Políticas
+                    <!-- Ícono balanza -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                        <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                        <path d="M7 21h10"/>
+                        <path d="M12 3v18"/>
+                        <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
+                    </svg>
+                    Ciencias Políticas
                 </button>
+
             </div>
         </div>
 
+        <!-- Paso 2: Disclaimer -->
         <div id="step-disclaimer" class="disclaimer-step">
-            <div class="access-title disclaimer-title">⚠️ Información Importante</div>
-            
+            <div class="access-title disclaimer-title">
+                <!-- Ícono advertencia -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                    <line x1="12" y1="9"  x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                Información Importante
+            </div>
+
             <div class="disclaimer-note">
                 <p>
                     <strong>Nota sobre las respuestas:</strong><br>
-                    Si la respuesta generada no es correcta o no se adapta a lo que necesitas, por favor utiliza el botón:
+                    Si la respuesta generada no es correcta o no se adapta a lo que necesitas,
+                    por favor utiliza el botón:
                 </p>
                 <div class="fake-btn-container">
-                    <span class="fake-btn-label">🔄 Generar otra respuesta</span>
+                    <span class="fake-btn-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             aria-hidden="true" style="vertical-align:middle;margin-right:4px">
+                            <polyline points="1 4 1 10 7 10"/>
+                            <path d="M3.51 15a9 9 0 1 0 .49-3.5"/>
+                        </svg>
+                        Generar otra respuesta
+                    </span>
                 </div>
                 <p>Esto ayudará a Goit-IA a brindarte una respuesta más acertada.</p>
             </div>
@@ -82,15 +253,16 @@
             <div class="terms-container">
                 <input type="checkbox" id="terms-check" onchange="toggleContinueButton()">
                 <label for="terms-check">
-                    He leído y acepto los 
-                    <a href="{{ url_for('privacidad.privacidad') }}" target="_blank">
+                    He leído y acepto los
+                    <a href="{{ url_for('privacidad.privacidad') }}" target="_blank" rel="noopener noreferrer">
                         términos y condiciones
-                    </a> 
+                    </a>
                     vinculados al aviso de privacidad del sistema.
                 </label>
             </div>
 
-            <button id="btn-continue-chat" class="program-btn btn-continue" disabled onclick="finalizeLogin()">
+            <button id="btn-continue-chat" class="program-btn btn-continue" disabled
+                    onclick="finalizeLogin()">
                 Continuar al Chat
             </button>
         </div>
@@ -98,8 +270,9 @@
     </div>
 </div>
 
+<!-- Clase utilitaria para screen readers -->
+<style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
+
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-
 {% endblock %}

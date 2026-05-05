@@ -7,18 +7,353 @@
 {% endblock %}
 
 {% block content %}
-<section id="inicio-section">
-    
-    <div class="logo-grande">
-        <img src="{{ url_for('static', filename='images/illu-claro.svg') }}" 
-             alt="Logo Goit-IA" 
-             class="logo-light-mode">
-        <img src="{{ url_for('static', filename='images/illu-oscuro.svg') }}" 
-             alt="Logo Goit-IA" 
-             class="logo-dark-mode">
-    </div>
-    <h1>Hola, soy Goit-IA</h1>
-    <p>Tu asistente académico de la FNT, siempre listo para ayudarte.</p>
-    <a href="{{ url_for('chatbot.chat') }}" class="cta-button">Ir al chatbot y conversar</a>
-</section>
+<div id="inicio-page">
+
+    {# ══════════════════════════════════════════════════════
+       HERO — dos columnas: texto + ilustración
+    ══════════════════════════════════════════════════════ #}
+    <section class="hero-section" aria-label="Introducción">
+        <div class="hero-text">
+
+            <!-- Badge de estado -->
+            <div class="hero-badge" aria-hidden="true">
+                <span class="badge-pulse"></span>
+                Asistente IA · Facultad de Negocios y Tecnologías
+            </div>
+
+            <h1 class="hero-heading">
+                Tu asistente académico
+                <span class="text-accent">inteligente</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Resuelve tus dudas sobre trámites, reglamentos y servicios universitarios
+                al instante. Disponible 24/7 para todos los programas de la&nbsp;FNT.
+            </p>
+
+            <!-- CTAs -->
+            <div class="hero-actions">
+                <a href="{{ url_for('chatbot.chat') }}" class="cta-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    Comenzar conversación
+                </a>
+                <a href="{{ url_for('informacion.info') }}" class="btn-outline">
+                    Saber más
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Stats de confianza -->
+            <div class="hero-stats" aria-label="Estadísticas">
+                <div class="stat-item">
+                    <span class="stat-num">6</span>
+                    <span class="stat-label">Carreras</span>
+                </div>
+                <div class="stat-sep" aria-hidden="true"></div>
+                <div class="stat-item">
+                    <span class="stat-num">24/7</span>
+                    <span class="stat-label">Disponible</span>
+                </div>
+                <div class="stat-sep" aria-hidden="true"></div>
+                <div class="stat-item">
+                    <span class="stat-num">RAG</span>
+                    <span class="stat-label">Tecnología</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual: ilustración + chips flotantes -->
+        <div class="hero-visual" aria-hidden="true">
+            <div class="illustration-container">
+                <div class="illustration-glow"></div>
+
+                <img src="{{ url_for('static', filename='images/illu-claro.svg') }}"
+                     alt="" class="logo-light-mode hero-illustration">
+                <img src="{{ url_for('static', filename='images/illu-oscuro.svg') }}"
+                     alt="" class="logo-dark-mode hero-illustration">
+
+                <!-- Chips decorativos flotantes -->
+                <div class="float-chip chip-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    Respuesta inmediata
+                </div>
+
+                <div class="float-chip chip-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    Información oficial
+                </div>
+
+                <div class="float-chip chip-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                    </svg>
+                    FNT · UV
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# ══════════════════════════════════════════════════════
+       FEATURES — tres tarjetas de beneficios
+    ══════════════════════════════════════════════════════ #}
+    <section class="features-section" aria-label="Características">
+        <div class="features-header">
+            <h2>¿Por qué usar Goit-IA?</h2>
+            <p>Diseñado específicamente para la comunidad estudiantil de la FNT.</p>
+        </div>
+
+        <div class="features-grid">
+
+            <!-- Tarjeta 1 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                </div>
+                <h3>Respuestas al instante</h3>
+                <p>Sin filas ni esperas. Información precisa en segundos, disponible cualquier hora del día, los 365 días del año.</p>
+            </div>
+
+            <!-- Tarjeta 2 — destacada -->
+            <div class="feature-card feature-card--highlight">
+                <div class="feature-badge-pill">Más relevante</div>
+                <div class="feature-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                </div>
+                <h3>Conocimiento académico</h3>
+                <p>Entrenado con documentos oficiales: reglamentos, estatutos, trámites y procedimientos de la Universidad Veracruzana.</p>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <h3>Seguro y confiable</h3>
+                <p>Tus consultas son confidenciales. Solo usamos inteligencia artificial para brindarte información verificada y precisa.</p>
+            </div>
+
+        </div>
+    </section>
+
+    {# ══════════════════════════════════════════════════════
+       PASOS — cómo funciona
+    ══════════════════════════════════════════════════════ #}
+    <section class="steps-section" aria-label="Cómo funciona">
+        <div class="section-header">
+            <h2>Así de simple</h2>
+            <p>Tres pasos para resolver tus dudas académicas</p>
+        </div>
+
+        <div class="steps-container">
+
+            <div class="step-card">
+                <div class="step-num" aria-hidden="true">01</div>
+                <div class="step-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                </div>
+                <h3>Elige tu carrera</h3>
+                <p>Selecciona tu programa educativo para personalizar las respuestas a tu contexto académico específico.</p>
+            </div>
+
+            <div class="step-connector" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num" aria-hidden="true">02</div>
+                <div class="step-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </div>
+                <h3>Escribe tu pregunta</h3>
+                <p>Consulta en lenguaje natural: trámites escolares, fechas importantes, requisitos, reglamentos y más.</p>
+            </div>
+
+            <div class="step-connector" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num" aria-hidden="true">03</div>
+                <div class="step-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <h3>Recibe tu respuesta</h3>
+                <p>Obtén información precisa basada en documentos y fuentes oficiales de la Universidad Veracruzana.</p>
+            </div>
+
+        </div>
+    </section>
+
+    {# ══════════════════════════════════════════════════════
+       PROGRAMAS — cobertura
+    ══════════════════════════════════════════════════════ #}
+    <section class="programs-section" aria-label="Programas disponibles">
+        <p class="programs-eyebrow">Disponible para todos los programas de la FNT</p>
+        <div class="programs-row" role="list">
+            <span class="program-pill" role="listitem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                </svg>
+                Ingeniería de Software
+            </span>
+            <span class="program-pill" role="listitem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                    <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                    <circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+                Tecnologías (TI)
+            </span>
+            <span class="program-pill" role="listitem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+                Administración
+            </span>
+            <span class="program-pill" role="listitem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                Contabilidad
+            </span>
+            <span class="program-pill" role="listitem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                </svg>
+                Gestión
+            </span>
+            <span class="program-pill" role="listitem">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                    <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                    <path d="M7 21h10"/><path d="M12 3v18"/>
+                    <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
+                </svg>
+                Ciencias Políticas
+            </span>
+        </div>
+    </section>
+
+    {# ══════════════════════════════════════════════════════
+       CTA FINAL
+    ══════════════════════════════════════════════════════ #}
+    <section class="final-cta-section" aria-label="Llamada a la acción">
+        <!-- Esferas decorativas -->
+        <div class="cta-orb cta-orb--1" aria-hidden="true"></div>
+        <div class="cta-orb cta-orb--2" aria-hidden="true"></div>
+
+        <div class="final-cta-content">
+            <div class="cta-icon-wrap" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    <circle cx="9" cy="16" r="1" fill="currentColor" stroke="none"/>
+                    <circle cx="15" cy="16" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+            </div>
+            <h2>¿Tienes alguna duda académica?</h2>
+            <p>Empieza ahora. Sin registro, sin complicaciones.</p>
+            <a href="{{ url_for('chatbot.chat') }}" class="cta-button cta-white">
+                Abrir el Chat
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+</div>
 {% endblock %}

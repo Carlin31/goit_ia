@@ -9,22 +9,21 @@
     gap: 4rem;
 }
 
-/* --- Sección 1: Cards --- */
+/* ─── Sección 1: Cards ──────────────────────────────────── */
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
 }
 
 .card {
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border) !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    border-radius: 12px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    border-radius: 14px;
     padding: 2rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -33,91 +32,87 @@
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(var(--primary-rgb), 0.3);
 }
 
-/* Estilo para el contenedor del icono SVG */
 .card-icon-wrapper {
     margin-bottom: 1rem;
-    color: var(--primary-color, #007bff);
+    color: var(--primary-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60px; 
     width: 60px;
+    height: 60px;
+    background: var(--primary-light);
+    border-radius: 14px;
 }
 
-/* ESTO ASEGURA QUE TUS SVG TENGAN EL TAMAÑO CORRECTO */
-.card-icon-wrapper svg {
-    width: 48px;
-    height: 48px;
-    stroke-width: 1.5; /* Ajusta el grosor de línea si usas iconos de línea */
-}
-/* Fallback para el emoji si no pones SVG aun */
-.icon-placeholder {
-    font-size: 2.5rem;
-}
+.card-icon-wrapper svg { width: 28px; height: 28px; }
+
+.icon-placeholder { font-size: 2rem; }
 
 .card h3 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     margin-bottom: 0.5rem;
-    color: var(--text-primary, #333);
+    color: var(--text-color);
+    font-weight: 600;
 }
 
 .card p {
-    color: var(--text-secondary, #666);
-    font-size: 0.95rem;
-    line-height: 1.5;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.55;
 }
 
-/* --- Sección 2: Tutorial Regenerar --- */
-#regen-tutorial {
-    display: flex;
-    justify-content: center;
-}
+/* ─── Sección 2: Tutorial Regenerar ────────────────────── */
+#regen-tutorial { display: flex; justify-content: center; }
 
 .tutorial-box {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    background: linear-gradient(135deg, rgba(var(--primary-rgb, 0,123,255), 0.05), transparent);
-    border: 1px dashed var(--border-color, #ccc);
+    background: var(--primary-light);
+    border: 1px dashed rgba(var(--primary-rgb), 0.35);
     padding: 1.5rem 2rem;
     border-radius: 50px;
     max-width: 800px;
+    width: 100%;
 }
 
 .tutorial-icon-wrapper {
-    color: var(--primary-color, #007bff);
-    background: #fff;
+    color: var(--primary-color);
+    background: var(--bg-color);
     width: 50px;
     height: 50px;
-    min-width: 50px; /* Evita que se aplaste */
+    min-width: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
-.tutorial-icon-wrapper svg {
-    width: 24px;
-    height: 24px;
-}
+.tutorial-icon-wrapper svg { width: 24px; height: 24px; }
 
 .tutorial-content h4 {
     margin: 0 0 0.25rem 0;
-    font-size: 1.1rem;
-    color: var(--text-primary, #333);
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 600;
 }
 
 .tutorial-content p {
     margin: 0;
     font-size: 0.9rem;
-    color: var(--text-secondary, #555);
+    color: var(--text-secondary);
+    line-height: 1.5;
 }
 
-/* --- Sección 3: Tech Stack --- */
+/* ─── Sección 3: Tech Stack ─────────────────────────────── */
 .tech-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -126,15 +121,36 @@
 }
 
 .tech-card {
-    background: var(--bg-card, #f8f9fa);
+    background: var(--secondary-bg-color);
     padding: 2rem;
     border-radius: 16px;
     position: relative;
-    border: 1px solid transparent;
+    border: 1px solid var(--border-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .tech-card:hover {
-    border-color: var(--primary-color, #007bff);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.tech-card h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.tech-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+}
+
+.tech-card p em {
+    color: var(--primary-color);
+    font-style: normal;
+    font-weight: 500;
 }
 
 .tech-header {
@@ -147,26 +163,18 @@
 .step-number {
     font-size: 2.5rem;
     font-weight: 700;
-    opacity: 0.1;
-    color: var(--text-primary, #000);
+    opacity: 0.08;
+    color: var(--text-color);
     line-height: 1;
 }
 
-.mini-icon {
-    color: var(--primary-color, #007bff);
-    opacity: 0.8;
-}
+.mini-icon { color: var(--primary-color); opacity: 0.85; }
+.mini-icon svg { width: 28px; height: 28px; }
 
-.mini-icon svg {
-    width: 32px;
-    height: 32px;
-}
-
-/* Estilo especial para la tarjeta final "Full Span" */
 .full-span {
     grid-column: 1 / -1;
-    background: var(--secondary-bg-color, #fff);
-    border: 1px solid var(--border-color, #e0e0e0);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
     text-align: center;
 }
 
@@ -178,38 +186,35 @@
     margin-bottom: 1rem;
 }
 
-.mini-icon.large svg {
-    width: 48px;
-    height: 48px;
-    color: var(--primary-color, #007bff);
-}
+.mini-icon.large svg { width: 40px; height: 40px; }
 
 .step-badge {
-    font-size: 0.8rem;
-    background: var(--primary-color, #007bff);
+    font-size: 0.78rem;
+    background: var(--primary-color);
     color: #fff;
     padding: 0.2rem 0.8rem;
     border-radius: 20px;
     font-weight: 600;
+    display: inline-block;
 }
 
-/* --- Sección 4: Lista y Tópicos --- */
+/* ─── Sección 4: Features & Topics ─────────────────────── */
 .features-list {
     list-style: none;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1.5rem;
     justify-content: center;
     margin-bottom: 3rem;
 }
 
 .features-list li {
-    background: rgba(var(--primary-rgb, 0,0,0), 0.03);
-    padding: 0.8rem 1.5rem;
+    background: var(--primary-light);
+    padding: 0.7rem 1.25rem;
     border-radius: 8px;
-    font-size: 0.95rem;
-    color: var(--text-primary, #333);
+    font-size: 0.92rem;
+    color: var(--text-color);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -218,123 +223,91 @@
 .list-icon-slot svg {
     width: 18px;
     height: 18px;
-    color: var(--success-color, #28a745); /* Verde para checks */
+    color: var(--success-color);
 }
 
-.topics-wrapper {
-    text-align: center;
-}
+.topics-wrapper { text-align: center; }
 
 .topics-cloud {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.8rem;
+    gap: 0.75rem;
 }
 
 .topic-tag {
-    background-color: #fff;
-    border: 1px solid var(--border-color, #ddd);
-    color: var(--text-secondary, #555);
-    padding: 0.5rem 1.2rem;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.45rem 1.1rem;
     border-radius: 100px;
-    font-size: 0.9rem;
-    transition: all 0.2s;
+    font-size: 0.88rem;
+    transition: all 0.2s ease;
     cursor: default;
+    font-weight: 500;
 }
 
 .topic-tag:hover {
-    background-color: var(--primary-color, #007bff);
+    background-color: var(--primary-color);
     color: #fff;
-    border-color: var(--primary-color, #007bff);
-    transform: scale(1.05);
+    border-color: var(--primary-color);
+    transform: scale(1.04);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.25);
 }
 
-/* Responsividad */
-@media (max-width: 768px) {
-    .tech-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .tutorial-box {
-        flex-direction: column;
-        text-align: center;
-        border-radius: 20px;
-    }
-}
-
-/* --- SECCIÓN 4: BENTO GRID (Alcance y Conocimiento) --- */
-
-/* Contenedor de la grilla */
+/* ─── Bento Grid ────────────────────────────────────────── */
 .bento-grid {
     display: grid;
-    grid-template-columns: 1fr 1.5fr; /* Columna izquierda estrecha, derecha amplia */
+    grid-template-columns: 1fr 1.5fr;
     grid-template-rows: auto auto;
     gap: 1.5rem;
     margin-top: 2rem;
 }
 
-/* Estilo base de las tarjetas Bento */
 .bento-card {
     background: var(--secondary-bg-color);
-    /* Opcional: bajar opacidad si el fondo base tiene texturas */
-    opacity: 0.98;
-    border: 1px solid var(--border-color, #e0e0e0);
+    border: 1px solid var(--border-color);
     border-radius: 20px;
     padding: 2rem;
     position: relative;
-    overflow: hidden; /* Para que la imagen no se salga */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .bento-card:hover {
-    box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+    box-shadow: var(--shadow-md);
     transform: translateY(-3px);
-    border-color: var(--primary-color, #007bff);
+    border-color: rgba(var(--primary-rgb), 0.3);
 }
 
-/* --- TARJETA 1: VISUAL (Imagen/Gradiente) --- */
+/* Tarjeta Visual (imagen + overlay) */
 .visual-card {
     grid-column: 1 / 2;
-    grid-row: 1 / 3; /* Ocupa todo el alto de la izquierda */
-    
-    /* Fallback por si no carga la imagen del HTML */
-    background: linear-gradient(135deg, var(--primary-color, #007bff), #0056b3);
-    
+    grid-row: 1 / 3;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Texto abajo */
+    justify-content: flex-end;
 }
 
-/* Opcional: Si usas una imagen real, agrega una capa oscura para leer el texto */
 .visual-overlay {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    inset: 0;
+    background: linear-gradient(to top, rgba(18, 18, 27, 0.85), transparent 60%);
     z-index: 1;
 }
 
 .visual-content {
     position: relative;
-    z-index: 2; /* Encima del overlay */
+    z-index: 2;
 }
 
-.visual-content h3 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    color: #fff;
-}
+.visual-content h3 { font-size: 1.6rem; margin-bottom: 0.4rem; color: #fff; }
+.visual-content p  { color: rgba(255, 255, 255, 0.85); font-size: 0.95rem; }
 
-.visual-content p {
-    color: rgba(255,255,255,0.9);
-    font-size: 1rem;
-}
-
-/* --- TARJETA 2: CARACTERÍSTICAS (Lista) --- */
-.features-card {
-    grid-column: 2 / 3;
-}
+/* Tarjeta Características */
+.features-card { grid-column: 2 / 3; }
 
 .modern-list {
     list-style: none;
@@ -342,72 +315,63 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
 }
 
-.modern-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-}
+.modern-list li { display: flex; align-items: flex-start; gap: 1rem; }
 
 .list-icon {
-    background: rgba(var(--primary-rgb, 0,123,255), 0.1);
-    color: var(--primary-color, #007bff);
+    background: var(--primary-light);
+    color: var(--primary-color);
     padding: 10px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 48px;
-    height: 48px;
+    min-width: 44px;
+    height: 44px;
 }
 
-.list-icon svg {
-    width: 24px;
-    height: 24px;
-}
+.list-icon svg { width: 22px; height: 22px; }
 
 .modern-list strong {
     display: block;
-    font-size: 1.1rem;
-    color: var(--text-primary, #333);
-    margin-bottom: 0.2rem;
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 0.15rem;
+    font-weight: 600;
 }
 
 .modern-list span {
-    font-size: 0.9rem;
-    color: var(--text-secondary, #666);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
 }
 
-/* --- TARJETA 3: NUBE DE TÓPICOS --- */
+/* Tarjeta Topics */
 .topics-card {
     grid-column: 2 / 3;
-    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
 }
 
 .topics-header {
     display: flex;
-    justify-content: center; /* Centrado activo */
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
-    text-align: center;      /* Asegura el centrado del texto */
-    width: 100%;             /* Asegura que ocupe todo el ancho */
+    margin-bottom: 1.25rem;
 }
 
-.topics-header h3 {
-    margin: 0;
-    font-size: 1.3rem;
-}
+.topics-header h3 { margin: 0; font-size: 1.15rem; color: var(--text-color); }
 
-/* Badge animado "Activo" */
+/* Badge "Activo" con pulso */
 .pulse-badge {
-    background: #d4edda;
-    color: #155724;
-    padding: 0.25rem 0.75rem;
+    background: rgba(var(--success-color, 34, 197, 94), 0.12);
+    color: var(--success-color);
+    padding: 0.2rem 0.65rem;
     border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: bold;
+    font-size: 0.75rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -416,205 +380,83 @@
 .pulse-badge::before {
     content: '';
     display: block;
-    width: 8px;
-    height: 8px;
-    background: #28a745;
+    width: 7px;
+    height: 7px;
+    background: var(--success-color);
     border-radius: 50%;
     animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
-    70% { box-shadow: 0 0 0 6px rgba(40, 167, 69, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+    0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.45); }
+    70%  { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
 }
 
-.topics-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-}
-
-.topic-tag {
-    background-color: #fff;
-    border: 1px solid var(--border-color, #ddd);
-    color: var(--text-secondary, #555);
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px; /* Menos redondo, más tech */
-    font-size: 0.9rem;
-    transition: all 0.2s;
-    font-weight: 500;
-}
-
-/* Destacar temas importantes */
-.topic-tag.highlight {
-    background-color: rgba(var(--primary-rgb, 0,123,255), 0.05);
-    border-color: rgba(var(--primary-rgb, 0,123,255), 0.2);
-    color: var(--primary-color, #007bff);
-}
-
-.topic-tag:hover {
-    transform: translateY(-2px);
-    border-color: var(--primary-color, #007bff);
-    box-shadow: 0 4px 12px rgba(var(--primary-rgb, 0,123,255), 0.15);
-}
-
-/* --- RESPONSIVIDAD --- */
+/* ─── Responsive ────────────────────────────────────────── */
 @media (max-width: 900px) {
     .bento-grid {
-        grid-template-columns: 1fr; /* Una sola columna en tablet/móvil */
+        grid-template-columns: 1fr;
         grid-template-rows: auto;
     }
-    
+
     .visual-card {
         grid-column: 1 / -1;
         grid-row: auto;
-        min-height: 250px; /* Altura mínima para que se vea la imagen */
+        min-height: 220px;
     }
-    
-    .features-card, .topics-card {
-        grid-column: 1 / -1;
+
+    .features-card,
+    .topics-card { grid-column: 1 / -1; }
+}
+
+@media (max-width: 768px) {
+    .tech-grid { grid-template-columns: 1fr; }
+
+    .tutorial-box {
+        flex-direction: column;
+        text-align: center;
+        border-radius: 20px;
+        padding: 1.25rem;
     }
 }
 
-/* ========================================= */
-/* --- OVERRIDES PARA MODO OSCURO (AÑADIDO) --- */
-/* ========================================= */
-
-/* 1. Fondo de la tarjeta de temas (reemplaza el gradiente blanco) */
-body.dark-mode .topics-card {
-    background: linear-gradient(to bottom right, #1e1e1e, #252525);
-    border-color: #404040;
-}
-
-/* 2. Título de la tarjeta en oscuro */
-body.dark-mode .topics-header h3 {
-    color: #f0f0f0; /* Blanco suave */
-}
-
-/* 3. Etiquetas (Tags) en estado normal */
-body.dark-mode .topic-tag {
-    background-color: #2c2c2c;
-    border-color: #444;
-    color: #d1d1d1;
-}
-
-/* 4. Etiquetas al pasar el mouse (Hover) */
-body.dark-mode .topic-tag:hover {
-    background-color: var(--primary-color, #007bff);
-    border-color: var(--primary-color, #007bff);
-    color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Sombra más oscura */
-}
-
-/* ========================================= */
-/* --- MODO OSCURO PARA INFORMACION.HTML --- */
-/* ========================================= */
-
-:root.dark-mode .card {
-    background: #1e1e28; /* --secondary-bg-color aproximado */
-    border-color: var(--border-color);
-}
-
-:root.dark-mode .card h3 {
-    color: var(--text-color);
-}
-
-:root.dark-mode .card p {
-    color: var(--text-secondary);
-}
-
-/* Sección Tutorial */
-:root.dark-mode .tutorial-box {
-    background: linear-gradient(135deg, rgba(10, 132, 255, 0.1), transparent);
-    border-color: #3a3a4a;
-}
-
-:root.dark-mode .tutorial-icon-wrapper {
-    background: #2c2c3a;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-
-/* Tech Stack */
-:root.dark-mode .tech-card {
-    background: #1e1e28;
-    border-color: transparent;
-}
-
-:root.dark-mode .tech-card:hover {
-    border-color: var(--primary-color);
-}
-
-:root.dark-mode .step-number {
-    color: #ffffff;
-    opacity: 0.15;
-}
-
-:root.dark-mode .full-span {
-    background: #1e1e28;
-    border-color: var(--border-color);
-}
-
-/* Características (Bento List) */
-:root.dark-mode .modern-list strong {
-    color: var(--text-color);
-}
-
-:root.dark-mode .modern-list span {
-    color: var(--text-secondary);
-}
-
-:root.dark-mode .list-icon {
-    background: rgba(10, 132, 255, 0.15); /* Azul más vibrante para contraste */
-}
-
-/* Features List (Sección 4 anterior) */
-:root.dark-mode .features-list li {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-color);
-}
-
-/* ========================================= */
-/* --- AJUSTES ESPECÍFICOS MODO OSCURO --- */
-/* ========================================= */
-
-/* 1. Corrección para Títulos de Secciones (imagen 2) */
-:root.dark-mode .tutorial-content h4 {
-    color: var(--text-color, #EFEFF1); /* Asegura que el título sea blanco/claro */
-}
-
-:root.dark-mode .tutorial-content p {
-    color: var(--text-secondary, #9a9aab); /* Texto descriptivo suave */
-}
-
-/* 2. Corrección para Tech Cards (imagen 3) */
-:root.dark-mode .tech-card h4 {
-    color: var(--text-color, #EFEFF1);
-}
-
-:root.dark-mode .tech-card p {
-    color: var(--text-secondary, #9a9aab);
-}
-
-:root.dark-mode .tech-card p em {
-    color: var(--primary-color); /* Resalta 'K-Nearest Neighbors' */
-    font-style: normal;
-}
-
-/* 3. Corrección para Temas Entrenados / Topic Tags (imagen 1) */
+/* ─── Dark Mode overrides ───────────────────────────────── */
 :root.dark-mode .topics-card {
     background: var(--secondary-bg-color);
-    border: 1px solid var(--border-color);
+    border-color: var(--border-color);
 }
 
 :root.dark-mode .topic-tag {
-    background-color: #2c2c3a; /* Fondo oscuro para la etiqueta */
-    border-color: #444;
-    color: #d1d1d1; /* Texto gris claro */
+    background-color: var(--surface-color);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
 }
 
 :root.dark-mode .topic-tag:hover {
     background-color: var(--primary-color);
-    color: #ffffff;
     border-color: var(--primary-color);
+    color: #fff;
 }
+
+:root.dark-mode .card {
+    background: var(--secondary-bg-color);
+    border-color: var(--border-color);
+}
+
+:root.dark-mode .tutorial-box {
+    background: rgba(var(--primary-rgb), 0.08);
+    border-color: rgba(var(--primary-rgb), 0.3);
+}
+
+:root.dark-mode .tutorial-icon-wrapper {
+    background: var(--surface-color);
+    border-color: var(--border-color);
+}
+
+:root.dark-mode .full-span {
+    background: var(--secondary-bg-color);
+    border-color: var(--border-color);
+}
+
+:root.dark-mode .list-icon { background: rgba(var(--primary-rgb), 0.15); }

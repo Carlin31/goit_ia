@@ -4,7 +4,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar filtros al cargar
     filterAndSort('pdf');
     filterAndSort('url');
 });
@@ -30,13 +29,72 @@ function openPdfModal(filename) {
 
 // Cerrar al hacer clic fuera (Cualquier modal)
 window.onclick = function(event) {
-    const modals = ['logModal', 'urlModal', 'pdfModal'];
+    const modals = ['logModal', 'urlModal', 'pdfModal', 'chatDetailModal', 'faqAddModal', 'faqEditModal'];
     modals.forEach(id => {
         const modal = document.getElementById(id);
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = 'none';
         }
     });
+}
+
+// ─── FILTRO DE CHAT LOGS ──────────────────────────────────────
+function filterChatLogs() {
+    const searchText  = (document.getElementById('chatSearch')?.value  || '').toLowerCase().trim();
+    const modelFilter = (document.getElementById('chatModelFilter')?.value || '').toLowerCase();
+    const rows = document.querySelectorAll('#chatLogsTable .chat-log-row');
+
+    rows.forEach(row => {
+        const matricula = row.getAttribute('data-matricula') || '';
+        const modelo    = row.getAttribute('data-modelo')    || '';
+
+        const matchesSearch = !searchText  || matricula.includes(searchText);
+        const matchesModel  = !modelFilter || modelo.includes(modelFilter);
+
+        row.style.display = (matchesSearch && matchesModel) ? '' : 'none';
+    });
+}
+
+// ─── MODAL DETALLE DE PREGUNTA ────────────────────────────────
+function openChatDetail(row) {
+    const d = row.dataset;
+    const matricula = d.dMatricula || '';
+    const programa  = d.dPrograma  || '';
+    const fecha     = d.dFecha     || '';
+    const hora      = d.dHora      || '';
+    const modelo    = d.dModelo    || '';
+    const pregunta  = d.dPregunta  || '';
+    const respuesta = d.dRespuesta || '';
+
+    const isKnn = modelo.includes('KNN');
+    const badgeClass = isKnn ? 'badge-knn' : 'badge-llm';
+    const badgeLabel = isKnn ? 'KNN' : 'LLM';
+
+    document.getElementById('chatDetailContent').innerHTML = `
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.5rem; margin-bottom: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <div><strong style="color: var(--text-color);">Matrícula</strong><br><span style="font-family: monospace; font-weight: 700; color: var(--primary-color);">${matricula || '—'}</span></div>
+            <div><strong style="color: var(--text-color);">Programa</strong><br>${programa || '—'}</div>
+            <div><strong style="color: var(--text-color);">Fecha</strong><br>${fecha}</div>
+            <div><strong style="color: var(--text-color);">Hora</strong><br>${hora} &nbsp;<span class="model-badge ${badgeClass}">${badgeLabel}</span></div>
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <p style="font-weight: 600; margin-bottom: 0.4rem; color: var(--text-color); font-size: 0.88rem;">Pregunta</p>
+            <div style="background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; padding: 0.9rem 1rem; font-size: 0.88rem; line-height: 1.6; color: var(--text-color);">${escHtml(pregunta)}</div>
+        </div>
+        <div>
+            <p style="font-weight: 600; margin-bottom: 0.4rem; color: var(--text-color); font-size: 0.88rem;">Respuesta</p>
+            <div style="background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; padding: 0.9rem 1rem; font-size: 0.88rem; line-height: 1.6; color: var(--text-color); white-space: pre-wrap;">${escHtml(respuesta)}</div>
+        </div>
+    `;
+    document.getElementById('chatDetailModal').style.display = 'flex';
+}
+
+function escHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
 }
 
 // --- LÓGICA DE FILTRADO Y ORDENAMIENTO ---
@@ -158,6 +216,161 @@ function startTraining() {
         }
     };
 }
+
+// ─── GESTIÓN DE FAQs ──────────────────────────────────────────
+
+function filterFaqs() {
+    const searchText  = (document.getElementById('faqSearch')?.value || '').toLowerCase().trim();
+    const blockFilter = (document.getElementById('faqBlockFilter')?.value || '');
+    const rows = document.querySelectorAll('#faqTable .faq-row');
+
+    rows.forEach(row => {
+        const pregunta  = (row.getAttribute('data-pregunta')  || '').toLowerCase();
+        const respuesta = (row.getAttribute('data-respuesta') || '').toLowerCase();
+        const bloqueado = row.getAttribute('data-bloqueado') === 'true';
+
+        const matchesSearch = !searchText || pregunta.includes(searchText) || respuesta.includes(searchText);
+        const matchesBlock  = !blockFilter
+            || (blockFilter === 'bloqueada' && bloqueado)
+            || (blockFilter === 'normal'    && !bloqueado);
+
+        row.style.display = (matchesSearch && matchesBlock) ? '' : 'none';
+    });
+}
+
+function closeFaqModals() {
+    document.getElementById('faqAddModal').style.display = 'none';
+    document.getElementById('faqEditModal').style.display = 'none';
+}
+
+function openFaqAddModal() {
+    document.getElementById('faqAddPregunta').value = '';
+    document.getElementById('faqAddRespuesta').value = '';
+    _hideFaqMsg('faqAddMsg');
+    document.getElementById('faqAddModal').style.display = 'flex';
+}
+
+function openFaqEditModal(row) {
+    const id       = row.getAttribute('data-id');
+    const pregunta = row.getAttribute('data-pregunta');
+    const respuesta = row.getAttribute('data-respuesta');
+
+    document.getElementById('faqEditId').value = id;
+    document.getElementById('faqEditPregunta').value = pregunta;
+    document.getElementById('faqEditRespuesta').value = respuesta;
+    _hideFaqMsg('faqEditMsg');
+    document.getElementById('faqEditModal').style.display = 'flex';
+}
+
+async function submitFaqAdd() {
+    const pregunta  = document.getElementById('faqAddPregunta').value.trim();
+    const respuesta = document.getElementById('faqAddRespuesta').value.trim();
+
+    if (!pregunta || !respuesta) {
+        _showFaqMsg('faqAddMsg', 'Completa todos los campos.', false);
+        return;
+    }
+
+    const result = await _faqFetch(FAQ_URLS.add, { pregunta, respuesta });
+    if (result.ok) {
+        closeFaqModals();
+        location.reload();
+    } else {
+        _showFaqMsg('faqAddMsg', result.message, false);
+    }
+}
+
+async function submitFaqEdit() {
+    const id        = document.getElementById('faqEditId').value.trim();
+    const pregunta  = document.getElementById('faqEditPregunta').value.trim();
+    const respuesta = document.getElementById('faqEditRespuesta').value.trim();
+
+    if (!pregunta || !respuesta) {
+        _showFaqMsg('faqEditMsg', 'Completa todos los campos.', false);
+        return;
+    }
+
+    const result = await _faqFetch(FAQ_URLS.edit, { id, pregunta, respuesta });
+    if (result.ok) {
+        closeFaqModals();
+        location.reload();
+    } else {
+        _showFaqMsg('faqEditMsg', result.message, false);
+    }
+}
+
+async function deleteFaq(row) {
+    const id = row.getAttribute('data-id');
+    const pregunta = row.getAttribute('data-pregunta') || '';
+    const preview = pregunta.length > 60 ? pregunta.slice(0, 60) + '...' : pregunta;
+
+    if (!confirm(`¿Eliminar la FAQ?\n\n"${preview}"\n\nEsta acción no se puede deshacer.`)) return;
+
+    const result = await _faqFetch(FAQ_URLS.delete, { id });
+    if (result.ok) {
+        row.remove();
+        _updateFaqCount();
+    } else {
+        alert('Error: ' + result.message);
+    }
+}
+
+async function toggleFaqBlock(row) {
+    const id        = row.getAttribute('data-id');
+    const bloqueado = row.getAttribute('data-bloqueado') === 'true';
+    const accion    = bloqueado ? 'desbloquear' : 'bloquear';
+
+    if (!confirm(`¿${accion.charAt(0).toUpperCase() + accion.slice(1)} esta FAQ?\n\n` +
+        (bloqueado
+            ? 'La respuesta volverá a ser regenerable por el sistema.'
+            : 'La respuesta quedará fija y no podrá ser regenerada por el sistema.')
+    )) return;
+
+    const result = await _faqFetch(FAQ_URLS.toggleBlock, { id });
+    if (result.ok) {
+        location.reload();
+    } else {
+        alert('Error: ' + result.message);
+    }
+}
+
+// ─── Utilidades FAQ (privadas) ────────────────────────────────
+
+async function _faqFetch(url, body) {
+    try {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        const data = await res.json();
+        return { ok: data.status === 'ok', message: data.message || '' };
+    } catch (e) {
+        return { ok: false, message: 'Error de red. Intenta de nuevo.' };
+    }
+}
+
+function _showFaqMsg(elId, msg, success) {
+    const el = document.getElementById(elId);
+    el.style.display = 'block';
+    el.style.background = success ? 'rgba(34,197,94,0.12)' : 'rgba(239,68,68,0.12)';
+    el.style.color = success ? 'var(--success-color)' : 'var(--error-color)';
+    el.style.border = `1px solid ${success ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.3)'}`;
+    el.textContent = msg;
+}
+
+function _hideFaqMsg(elId) {
+    const el = document.getElementById(elId);
+    if (el) el.style.display = 'none';
+}
+
+function _updateFaqCount() {
+    const rows = document.querySelectorAll('#faqTable .faq-row');
+    const countEl = document.getElementById('faqCount');
+    if (countEl) countEl.textContent = `(${rows.length})`;
+}
+
+// ─── FIN FAQ ──────────────────────────────────────────────────
 
 function finishTrainingProcess() {
     const terminal = document.getElementById('terminalOutput');

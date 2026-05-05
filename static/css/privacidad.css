@@ -1,20 +1,45 @@
 /* static/css/privacidad.css */
 
-/* Por ahora este archivo es simple porque hereda mucho de base.css,
-   pero es útil tenerlo por si quieres personalizar solo esta página después */
-
 #privacy-section {
-    padding-bottom: 2rem;
+    padding-bottom: 2.5rem;
+    max-width: 820px;
+    margin: 0 auto;
 }
 
-#privacy-section p, 
+#privacy-section .section-header {
+    margin-bottom: 2rem;
+}
+
+#privacy-section .section-header h2 {
+    text-align: left;
+    font-size: 2rem;
+    color: var(--text-color);
+}
+
+#privacy-section p,
 #privacy-section li {
     color: var(--text-secondary);
     margin-bottom: 1rem;
+    line-height: 1.75;
+    font-size: 0.95rem;
 }
 
 #privacy-section h3 {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     margin-bottom: 0.5rem;
     color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Fecha de actualización */
+#privacy-section > div > p:first-child {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    background: var(--primary-light);
+    border-left: 3px solid var(--primary-color);
+    border-radius: 0 6px 6px 0;
+    display: inline-block;
+    margin-bottom: 1.5rem;
 }

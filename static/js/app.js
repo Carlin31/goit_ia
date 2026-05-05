@@ -1,44 +1,73 @@
 // --- static/js/app.js ---
 
-// VARIABLE GLOBAL PARA GUARDAR LA SELECCIÓN TEMPORALMENTE
+// ─── GLOBALES DEL FLUJO MODAL ────────────────────────────────
+let selectedMatricula   = "";
+let selectedPrograma    = "";
 let selectedProgramTemp = "";
 
-// 1. FUNCIONES PARA EL FLUJO DE ACCESO (MODAL)
+// ─── VALIDACIÓN DE MATRÍCULA ─────────────────────────────────
+const MATRICULA_REGEX = /^[S]\d{8}$/;
 
-// A) Paso 1 -> Paso 2: Guarda programa y muestra disclaimer
+window.validateMatricula = function() {
+    const input = document.getElementById('matricula-input');
+    const error = document.getElementById('matricula-error');
+    if (!input) return;
+
+    const value = input.value.trim().toUpperCase();
+
+    if (!MATRICULA_REGEX.test(value)) {
+        if (error) error.style.display = 'block';
+        input.classList.add('input-error');
+        input.focus();
+        return;
+    }
+
+    selectedMatricula = value;
+    if (error) error.style.display = 'none';
+    input.classList.remove('input-error');
+
+    const step0 = document.getElementById('step-matricula');
+    const step1 = document.getElementById('step-program-selection');
+    if (step0) step0.style.display = 'none';
+    if (step1) step1.style.display = 'block';
+};
+
+// ─── PASO 1 → PASO 2 (Programa → Disclaimer) ─────────────────
 window.goToDisclaimer = function(programName) {
-    console.log("Variando a paso 2. Programa:", programName);
     selectedProgramTemp = programName;
-    
+    selectedPrograma    = programName;
+
     const step1 = document.getElementById('step-program-selection');
     const step2 = document.getElementById('step-disclaimer');
-
     if (step1 && step2) {
         step1.style.display = 'none';
         step2.style.display = 'block';
     }
 };
 
-// B) Validar Checkbox: Habilita el botón de continuar
+// ─── VALIDAR CHECKBOX ────────────────────────────────────────
 window.toggleContinueButton = function() {
     const checkbox = document.getElementById('terms-check');
     const btn = document.getElementById('btn-continue-chat');
-    
+
     if (checkbox && btn) {
         if (checkbox.checked) {
             btn.disabled = false;
-            btn.style.backgroundColor = '#007bff'; // Color activo
-            btn.style.color = 'white';
+            btn.style.backgroundColor = '';
+            btn.style.color = '';
             btn.style.cursor = 'pointer';
+            btn.style.opacity = '1';
         } else {
             btn.disabled = true;
-            btn.style.backgroundColor = '#ccc'; // Color deshabilitado
+            btn.style.backgroundColor = '';
+            btn.style.color = '';
             btn.style.cursor = 'not-allowed';
+            btn.style.opacity = '';
         }
     }
 };
 
-// C) Finalizar: Llama a la lógica original de registro
+// ─── FINALIZAR ───────────────────────────────────────────────
 window.finalizeLogin = function() {
     if (selectedProgramTemp) {
         window.selectProgram(selectedProgramTemp);
@@ -47,148 +76,139 @@ window.finalizeLogin = function() {
     }
 };
 
-// 2. DEFINIR LA FUNCIÓN FINAL DE REGISTRO (GLOBAL)
+// ─── REGISTRO DE ACCESO ──────────────────────────────────────
 window.selectProgram = function(programa) {
-    console.log("🎓 Programa confirmado y registrando:", programa);
+    console.log("🎓 Programa:", programa, "| Matrícula:", selectedMatricula);
 
-    // A) Enviar datos al backend
-    fetch('/api/register_access', { 
+    fetch('/api/register_access', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-            programa: programa,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            programa:  programa,
+            matricula: selectedMatricula,
             timestamp: new Date().toISOString()
         })
     })
     .then(response => response.json())
-    .then(data => console.log("Registro exitoso:", data))
-    .catch(err => console.error("Error registrando acceso:", err));
+    .then(data  => console.log("Registro exitoso:", data))
+    .catch(err  => console.error("Error registrando acceso:", err));
 
-    // B) Guardar fecha
     const today = new Date().toISOString().split('T')[0];
     localStorage.setItem('goit_access_date', today);
 
-    // C) Cerrar el modal con animación
     const modal = document.getElementById('accessModal');
     if (modal) {
         modal.style.opacity = '0';
         modal.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => {
-            modal.style.display = 'none';
-        }, 500);
+        setTimeout(() => { modal.style.display = 'none'; }, 500);
     }
 };
 
+// ─── DOM READY ───────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- 3. LÓGICA DE INICIO (VISIBILIDAD DEL MODAL) ---
+
+    // LÓGICA DE INICIO (visibilidad del modal)
     const accessModal = document.getElementById('accessModal');
-    
+
     if (accessModal) {
-        // --- MODO PRUEBAS (ACTIVADO) ---
-        // Forzamos que el modal se muestre SIEMPRE.
         console.log("🚧 Modo Pruebas: Mostrando modal de acceso obligatoriamente.");
         accessModal.style.display = 'flex';
-        
-        // Aseguramos que se muestre el Paso 1 al recargar
+
+        // Mostrar paso 0 (matrícula), ocultar el resto
+        const step0 = document.getElementById('step-matricula');
         const step1 = document.getElementById('step-program-selection');
         const step2 = document.getElementById('step-disclaimer');
-        if(step1) step1.style.display = 'block';
-        if(step2) step2.style.display = 'none';
+        if (step0) step0.style.display = 'block';
+        if (step1) step1.style.display = 'none';
+        if (step2) step2.style.display = 'none';
 
-        /* --- MODO PRODUCCIÓN (CÓDIGO COMENTADO) ---
-        const today = new Date().toISOString().split('T')[0];
-        const lastAccess = localStorage.getItem('goit_access_date');
-
-        if (lastAccess === today) {
-            accessModal.style.display = 'none';
-        } else {
-            accessModal.style.display = 'flex';
+        // Enter en campo de matrícula avanza al siguiente paso
+        const matriculaInput = document.getElementById('matricula-input');
+        if (matriculaInput) {
+            matriculaInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') window.validateMatricula();
+            });
         }
-        */
     }
 
-    // --- 4. ELEMENTOS DEL CHAT ---
-    const chatForm = document.getElementById('chat-form');
-    const chatInput = document.getElementById('chat-input-field');
+    // ELEMENTOS DEL CHAT
+    const chatForm          = document.getElementById('chat-form');
+    const chatInput         = document.getElementById('chat-input-field');
     const messagesContainer = document.getElementById('chat-messages-container');
-    const loadingFace = document.getElementById('loading-face');
-    const btnRegenerate = document.getElementById('btn-regenerate');
+    const loadingFace       = document.getElementById('loading-face');
+    const btnRegenerate     = document.getElementById('btn-regenerate');
 
-    // Validación básica por si estamos en otra página
     if (!chatForm || !messagesContainer) return;
 
-    // --- 5. FUNCIONES DE INTERFAZ CHAT ---
+    // Historial de conversación en memoria: [{role, content}, ...]
+    // Se envía con cada petición para que el LLM mantenga contexto
+    const conversationHistory = [];
 
+    // FUNCIONES DE INTERFAZ CHAT
     function addMessage(text, sender) {
-    const div = document.createElement('div');
-    div.classList.add('message', sender);
-    
-    if (sender === 'bot') {
-        // MODIFICACIÓN: Usamos marked.parse para convertir Markdown a HTML
-        // Verificamos si la librería cargó correctamente para evitar errores
-        if (typeof marked !== 'undefined') {
-            div.innerHTML = marked.parse(text); 
-        } else {
-            div.innerHTML = text; // Fallback por si falla la librería
-        }
-    } else {
-        div.textContent = text;
-    }
+        const div = document.createElement('div');
+        div.classList.add('message', sender);
 
-    messagesContainer.appendChild(div);
-    
-    // Scroll al fondo
-    messagesContainer.scrollTo({
-        top: messagesContainer.scrollHeight,
-        behavior: 'smooth'
-        });
+        if (sender === 'bot') {
+            if (typeof marked !== 'undefined') {
+                div.innerHTML = marked.parse(text);
+            } else {
+                div.innerHTML = text;
+            }
+        } else {
+            div.textContent = text;
+        }
+
+        messagesContainer.appendChild(div);
+        messagesContainer.scrollTo({ top: messagesContainer.scrollHeight, behavior: 'smooth' });
     }
 
     function removeLastBotMessage() {
         const lastElement = messagesContainer.lastElementChild;
-
         if (lastElement && lastElement.classList.contains('bot')) {
             lastElement.remove();
-            console.log("✅ Último mensaje del bot eliminado correctamente.");
         } else {
             const botMessages = messagesContainer.querySelectorAll('.message.bot');
-            if (botMessages.length > 0) {
-                botMessages[botMessages.length - 1].remove();
-                console.log("✅ Último mensaje del bot eliminado (método alternativo).");
-            }
+            if (botMessages.length > 0) botMessages[botMessages.length - 1].remove();
         }
     }
 
-    // --- 6. LÓGICA DE COMUNICACIÓN (FETCH) ---
-
+    // FETCH AL BACKEND (incluye matrícula, programa e historial de conversación)
     async function sendMessage(message, mode = 'normal') {
-        
-        // Estado de carga
         if (mode === 'regenerate') {
-            if(btnRegenerate) btnRegenerate.style.display = 'none';
-            if(loadingFace) loadingFace.style.display = 'block';
+            // En regenerar: quitamos la última respuesta del historial para reemplazarla
+            if (conversationHistory.length > 0 &&
+                conversationHistory[conversationHistory.length - 1].role === 'assistant') {
+                conversationHistory.pop();
+            }
+            if (btnRegenerate) btnRegenerate.style.display = 'none';
+            if (loadingFace)   loadingFace.style.display   = 'block';
         } else {
+            // Mensaje nuevo: añadimos al historial antes de enviar
+            conversationHistory.push({ role: 'user', content: message });
             addMessage(message, 'user');
             chatInput.value = '';
-            if(loadingFace) loadingFace.style.display = 'block';
-            if(btnRegenerate) btnRegenerate.style.display = 'none';
+            if (loadingFace)   loadingFace.style.display   = 'block';
+            if (btnRegenerate) btnRegenerate.style.display = 'none';
         }
-        
+
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
         try {
             const response = await fetch('/chat', {
-                method: 'POST',
+                method:  'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: message, mode: mode })
+                body: JSON.stringify({
+                    message:   message,
+                    mode:      mode,
+                    matricula: selectedMatricula,
+                    programa:  selectedPrograma,
+                    history:   conversationHistory.slice(-8),   // últimos 4 intercambios
+                })
             });
-            
+
             const data = await response.json();
-            
-            if(loadingFace) loadingFace.style.display = 'none';
+            if (loadingFace) loadingFace.style.display = 'none';
 
             if (data.error) {
                 const divError = document.createElement('div');
@@ -198,42 +218,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 messagesContainer.appendChild(divError);
             } else {
                 addMessage(data.reply, 'bot');
-                if(btnRegenerate) btnRegenerate.style.display = 'inline-block';
-            }
+                // Guardar respuesta del asistente en el historial
+                conversationHistory.push({ role: 'assistant', content: data.reply });
 
+                // Si la respuesta está bloqueada por el admin, ocultar botón de regenerar
+                if (btnRegenerate) {
+                    btnRegenerate.style.display = data.bloqueado ? 'none' : 'inline-block';
+                    btnRegenerate.title = data.bloqueado
+                        ? 'Esta respuesta no puede ser regenerada'
+                        : 'Regenerar respuesta';
+                }
+            }
         } catch (error) {
-            if(loadingFace) loadingFace.style.display = 'none';
+            if (loadingFace) loadingFace.style.display = 'none';
             console.error("Error:", error);
             addMessage("Error de conexión.", 'bot');
         }
     }
 
-    // --- 7. EVENTOS DEL CHAT ---
-
+    // EVENTOS
     chatForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const message = chatInput.value.trim();
-        if (message) {
-            sendMessage(message, 'normal');
-        }
+        if (message) sendMessage(message, 'normal');
     });
 
     if (btnRegenerate) {
         btnRegenerate.addEventListener('click', () => {
-            console.log("🔄 Botón regenerar presionado.");
             const userMessages = messagesContainer.querySelectorAll('.message.user');
             if (userMessages.length > 0) {
-            const lastUserMessage = userMessages[userMessages.length - 1].textContent;
-            
-            // 3. Borramos la respuesta anterior del bot visualmente
-            removeLastBotMessage();
-            
-            // 4. Reenviamos el texto exacto que el usuario escribió antes
-            // Nota: Enviamos 'regenerate' como modo para que el backend sepa qué hacer si quiere
-            sendMessage(lastUserMessage, 'regenerate'); 
-        } else {
-            console.error("No hay mensajes de usuario para regenerar.");
-        }
+                const lastUserMessage = userMessages[userMessages.length - 1].textContent;
+                removeLastBotMessage();
+                sendMessage(lastUserMessage, 'regenerate');
+            }
         });
     }
 });

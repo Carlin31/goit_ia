@@ -1,299 +1,293 @@
-/* --- static/css/chat.css --- */
-/* NOTA: Este archivo hereda las variables :root definidas en style.css */
+/* static/css/chat.css — hereda variables de base.css */
 
-/* CONTENEDOR PRINCIPAL */
+/* ─── Contenedor Principal ─────────────────────────────── */
 #chat-container {
     display: flex;
     flex-direction: column;
-    height: 75vh;
-    max-width: 800px;
+    height: 78vh;
+    max-width: 820px;
     margin: 1rem auto;
-    /* Usa el color de fondo secundario del tema (gris claro u oscuro según el modo) */
     background: var(--secondary-bg-color);
-    border-radius: 12px;
+    border-radius: 16px;
     border: 1px solid var(--border-color);
     overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    font-family: 'Poppins', sans-serif; /* Coherencia con style.css */
+    box-shadow: var(--shadow-md);
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* CABECERA DEL CHAT */
+/* ─── Cabecera del Chat ────────────────────────────────── */
 .chat-header {
-    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.25rem;
     border-bottom: 1px solid var(--border-color);
-    text-align: center;
     font-weight: 600;
-    font-size: 1.1rem;
-    /* Invertimos: cabecera con fondo base para contraste con el contenedor */
+    font-size: 1rem;
     background-color: var(--bg-color);
     color: var(--text-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* ÁREA DE MENSAJES */
+.chat-header-icon {
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+/* ─── Área de Mensajes ─────────────────────────────────── */
 .chat-messages {
     flex-grow: 1;
     padding: 1.5rem;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1rem;
     scroll-behavior: smooth;
 }
 
-/* BURBUJAS DE MENSAJE (Base) */
+/* ─── Burbujas Base ────────────────────────────────────── */
 .message {
-    padding: 0.8rem 1.25rem;
+    padding: 0.85rem 1.25rem;
     border-radius: 18px;
     max-width: 80%;
     word-wrap: break-word;
-    font-size: 0.95rem;
+    font-size: 0.93rem;
+    line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Burbuja Bot */
 .message.bot {
-    /* Esta línea mantiene el fondo distintivo (grisáceo o según tu tema) */
-    background-color: var(--bg-color); 
-    
+    background-color: var(--bg-color);
     color: var(--text-color);
     align-self: flex-start;
-    
-    /* Bordes redondeados (la forma de burbuja) */
     border-bottom-left-radius: 4px;
-    border-radius: 18px; /* Mantiene la redondez general */
-    
     border: 1px solid var(--border-color);
-    line-height: 1.6;
-    
-    /* Asegura que el texto respete el espacio de la burbuja */
-    padding: 1rem 1.25rem; 
+    padding: 1rem 1.25rem;
     width: fit-content;
 }
 
-/* ESTILOS DEL BOT */
-.message.bot p {
-    margin-bottom: 10px; /* Separación entre párrafos */
-    margin-top: 0;
-}
-
-.message.bot p:last-child {
-    margin-bottom: 0; /* Quitar margen al último párrafo */
-}
-
-.message.bot ul, .message.bot ol {
-    margin-top: 5px;
-    margin-bottom: 10px;
-    padding-left: 20px; /* Sangría para que los puntos se vean bien */
-}
-
-.message.bot li {
-    margin-bottom: 5px; /* Espacio entre cada punto */
-    list-style-type: disc; /* Asegura que salgan los puntos */
-}
-
-/* Títulos y negritas dentro del mensaje del Bot */
-.message.bot strong, .message.bot b {
-    font-weight: 700;
-    color: var(--primary-color); /* Opcional: Resalta las palabras clave en azul/color tema */
-}
-
-.message.bot h1, .message.bot h2, .message.bot h3 {
-    font-size: 1.1em;
-    font-weight: 800;
-    margin-top: 15px;
-    margin-bottom: 8px;
-    color: var(--text-color);
-}
-
+/* Contenido Markdown del bot */
+.message.bot p          { margin-bottom: 0.6rem; margin-top: 0; }
+.message.bot p:last-child { margin-bottom: 0; }
+.message.bot ul,
+.message.bot ol         { margin: 0.3rem 0 0.6rem; padding-left: 1.25rem; }
+.message.bot li         { margin-bottom: 0.3rem; }
+.message.bot strong,
+.message.bot b          { font-weight: 700; color: var(--primary-color); }
+.message.bot h1,
+.message.bot h2,
+.message.bot h3         { font-size: 1.05em; font-weight: 700; margin: 0.75rem 0 0.4rem; color: var(--text-color); }
 .message.bot .chat-title {
-    font-size: 1.1em;
-    font-weight: 800;
-    color: var(--primary-color); /* Usa el azul vibrante del tema */
+    font-size: 1.05em;
+    font-weight: 700;
+    color: var(--primary-color);
     display: block;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin: 0.5rem 0 0.3rem;
 }
 
-/* ESTILOS DEL USUARIO */
+/* Burbuja Usuario */
 .message.user {
-    /* Usa el azul primario definido en style.css */
     background-color: var(--primary-color);
-    color: var(--primary-text); /* Texto blanco siempre */
+    color: var(--primary-text);
     align-self: flex-end;
     border-bottom-right-radius: 4px;
-    line-height: 1.4;
+    line-height: 1.5;
     white-space: pre-wrap;
+    border: none;
 }
 
-/* ÁREA DE INPUT */
+/* ─── Indicador de Carga ───────────────────────────────── */
+.loading-face {
+    display: none; /* JS override: block */
+    text-align: center;
+    padding: 0.5rem 1.5rem;
+    color: var(--primary-color);
+    width: 100%;
+}
+
+.loading-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 0.55rem 1.25rem;
+}
+
+.loading-dots {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.loading-dots span {
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    animation: dotPulse 1.4s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes dotPulse {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.35; }
+    40%           { transform: scale(1);   opacity: 1; }
+}
+
+.loading-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ─── Botón Regenerar ──────────────────────────────────── */
+.regenerate-container {
+    text-align: center;
+    padding-bottom: 8px;
+    min-height: 38px;
+}
+
+.regenerate-btn {
+    display: none; /* JS override: inline-block */
+    align-items: center;
+    gap: 0.4rem;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    font-family: 'Poppins', sans-serif;
+    padding: 5px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.regenerate-btn:hover {
+    background-color: var(--primary-light);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* JS set display:inline-block but we need flex for icon alignment */
+#btn-regenerate[style*="inline-block"] {
+    display: inline-flex !important;
+}
+
+/* ─── Área de Input ────────────────────────────────────── */
 .chat-input {
     display: flex;
+    align-items: center;
     border-top: 1px solid var(--border-color);
     background-color: var(--bg-color);
-    padding: 12px;
-    gap: 10px;
+    padding: 10px 12px;
+    gap: 8px;
 }
 
 .chat-input input[type="text"] {
     flex-grow: 1;
     border: 1px solid var(--border-color);
-    padding: 0.8rem 1.2rem;
+    padding: 0.7rem 1.1rem;
     border-radius: 25px;
-    /* Fondo que contrasta ligeramente con el área de input */
-    background: var(--secondary-bg-color); 
+    background: var(--secondary-bg-color);
     color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.93rem;
     outline: none;
-    transition: border-color 0.2s, background-color 0.3s;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
+
+.chat-input input[type="text"]::placeholder { color: var(--text-secondary); opacity: 0.7; }
 
 .chat-input input[type="text"]:focus {
     border-color: var(--primary-color);
-    /* En foco, hacemos el fondo igual al base para efecto de "activación" */
-    background: var(--bg-color); 
+    background: var(--bg-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.12);
 }
 
 .chat-input button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
     border: none;
     background-color: var(--primary-color);
     color: var(--primary-text);
-    padding: 0 1.5rem;
+    padding: 0.7rem 1.25rem;
     border-radius: 25px;
     cursor: pointer;
+    font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    transition: opacity 0.2s, transform 0.1s;
+    font-size: 0.9rem;
+    transition: opacity 0.2s, transform 0.1s, background-color 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
 }
 
 .chat-input button:hover {
-    opacity: 0.9;
-}
-.chat-input button:active {
-    transform: scale(0.98);
-}
-
-/* --- ELEMENTOS ESPECIALES --- */
-
-/* Animación de la Cara Cargando */
-.loading-face {
-    font-size: 2rem;
-    text-align: center;
-    animation: bounce 1s infinite;
-    display: none;
-    margin: 15px 0;
-    color: var(--primary-color);
-    width: 100%;
+    background-color: var(--primary-hover);
+    box-shadow: 0 4px 14px rgba(var(--primary-rgb), 0.3);
+    opacity: 1;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+.chat-input button:active { transform: scale(0.97); }
+
+/* Ocultar label "Enviar" en pantallas muy pequeñas */
+@media (max-width: 400px) {
+    .send-label { display: none; }
+    .chat-input button { padding: 0.7rem; border-radius: 50%; }
 }
 
-/* Botón Regenerar */
-.regenerate-container {
-    text-align: center; 
-    padding-bottom: 10px;
-    background-color: transparent; /* Transparente para tomar el fondo del contenedor */
-    min-height: 40px;
+/* ─── Scrollbar personalizada ──────────────────────────── */
+.chat-messages::-webkit-scrollbar { width: 6px; }
+.chat-messages::-webkit-scrollbar-track { background: transparent; }
+.chat-messages::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
 }
 
-.regenerate-btn {
-    background-color: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    padding: 6px 16px;
-    border-radius: 15px;
-    cursor: pointer;
-    margin-top: 5px;
-    display: none;
-    transition: all 0.2s;
-}
-
-.regenerate-btn:hover {
-    background-color: var(--border-color);
-    color: var(--text-color);
-}
-
-/* Scrollbar personalizada para Webkit */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: var(--secondary-bg-color); 
-}
-::-webkit-scrollbar-thumb {
-    background: var(--border-color); 
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #777; 
-}
-
-/* Botones de selección de programa en el modal */
-.program-btn {
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.2s;
-    width: 100%;
-    text-align: left;
-    padding-left: 20px;
-}
-
-.program-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-    transform: translateX(5px);
-}
-
-/* Asegurar que el modal esté siempre encima */
-#programModal {
-    z-index: 9999;
-    backdrop-filter: blur(5px); /* Efecto borroso en el fondo */
-}
-
-/* --- MODAL DE ACCESO (BLOQUEO PANTALLA) --- */
-
-/* Fondo que cubre toda la pantalla */
+/* ─── Modal de Acceso ──────────────────────────────────── */
 .access-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    /* Fondo semitransparente oscuro */
-    background-color: rgba(0, 0, 0, 0.7); 
-    /* EFECTO BORROSO (Blur) */
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px); /* Soporte para Safari */
-    z-index: 10000; /* Por encima de todo */
-    display: flex; /* Para centrar la caja */
+    inset: 0;
+    background-color: rgba(18, 18, 27, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10000;
+    display: flex;
     justify-content: center;
     align-items: center;
-    /* Animación de entrada */
-    animation: fadeIn 0.5s ease-out;
+    animation: fadeIn 0.4s ease-out;
 }
 
-/* Caja del contenido */
 .access-box {
-    background-color: var(--secondary-bg-color); /* Se adapta al tema (claro/oscuro) */
+    background-color: var(--secondary-bg-color);
     padding: 2.5rem;
-    border-radius: 16px;
+    border-radius: 20px;
     width: 90%;
-    max-width: 500px;
+    max-width: 520px;
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-lg), 0 0 0 1px var(--border-color);
     border: 1px solid var(--border-color);
-    /* Animación de entrada (subir un poco) */
-    animation: slideUp 0.5s ease-out;
+    animation: slideUp 0.4s ease-out;
+    color: var(--text-color);
 }
 
 .access-title {
-    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.4rem;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
     font-weight: 700;
@@ -301,39 +295,39 @@
 
 .access-desc {
     color: var(--text-secondary);
-    margin-bottom: 2rem;
-    font-size: 0.95rem;
-    line-height: 1.5;
+    margin-bottom: 1.75rem;
+    font-size: 0.93rem;
+    line-height: 1.6;
 }
 
-/* Grid de botones para los programas */
+/* Grid de programas */
 .programs-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Una columna en móviles */
-    gap: 12px;
+    grid-template-columns: 1fr;
+    gap: 10px;
 }
 
-@media (min-width: 600px) {
-    .programs-grid {
-        grid-template-columns: 1fr 1fr; /* Dos columnas en PC */
-    }
+@media (min-width: 540px) {
+    .programs-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* Estilo de los botones de selección */
+/* Botones de programa */
 .program-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    padding: 15px;
+    padding: 0.85rem 1rem;
     border-radius: 10px;
     cursor: pointer;
+    font-family: 'Poppins', sans-serif;
     font-weight: 500;
+    font-size: 0.88rem;
     transition: all 0.2s ease;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-align: left;
+    box-shadow: var(--shadow-sm);
 }
 
 .program-btn:hover {
@@ -341,157 +335,160 @@
     color: #fff;
     border-color: var(--primary-color);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+    box-shadow: 0 5px 16px rgba(var(--primary-rgb), 0.3);
 }
 
-.program-btn:active {
-    transform: scale(0.98);
-}
+.program-btn:active { transform: scale(0.98); }
 
-/* Animaciones */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+.program-btn svg { flex-shrink: 0; }
 
-@keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
+/* ─── Disclaimer ───────────────────────────────────────── */
+.disclaimer-step { display: none; text-align: left; }
 
-/* --- MODAL DE ACCESO (BLOQUEO PANTALLA) --- */
-
-.access-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7); 
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px);
-    z-index: 10000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: fadeIn 0.5s ease-out;
-}
-
-.access-box {
-    /* Cambiado para usar el fondo secundario del tema */
-    background-color: var(--secondary-bg-color); 
-    padding: 2.5rem;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--border-color);
-    animation: slideUp 0.5s ease-out;
-    /* Asegura que el texto base sea el del tema */
-    color: var(--text-color);
-}
-
-/* Estilo para la caja de aviso dentro del disclaimer */
-.disclaimer-note {
-    /* En lugar de #f8f9fa fijo, usamos el color de fondo base para contraste */
-    background-color: var(--bg-color) !important;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
-    /* Usamos el color de texto secundario del tema */
-    color: var(--text-secondary) !important;
-    border: 1px solid var(--border-color);
-}
-
-/* Estilo para el "botón" visual dentro del texto */
-.fake-btn-label {
-    background: var(--secondary-bg-color) !important;
-    color: var(--text-color) !important;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-weight: bold;
-    border: 1px solid var(--border-color);
-}
-
-/* Ajuste de los checkboxes y enlaces en modo oscuro */
-.access-box label {
-    color: var(--text-color);
-}
-
-.access-box a {
-    color: var(--primary-color);
-}
-
-/* Botón deshabilitado adaptado */
-#btn-continue-chat:disabled {
-    background-color: var(--border-color) !important;
-    color: var(--text-secondary) !important;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-/* --- NUEVOS ESTILOS EXTRAÍDOS DEL HTML --- */
-
-/* Estilo del texto "Pensando..." dentro de la cara de carga */
-.loading-face span {
-    font-size: 1rem;
-}
-
-/* Contenedor del paso de Disclaimer */
-.disclaimer-step {
-    display: none; 
+.disclaimer-title {
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+    justify-content: flex-start;
     text-align: left;
 }
 
-.disclaimer-title {
-    font-size: 1.2rem; 
-    margin-bottom: 15px;
-}
-
-/* Caja de nota informativa */
 .disclaimer-note {
-    background-color: var(--bg-color); /* Cambiado a variable para modo oscuro */
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
-    color: var(--text-color);
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.25rem;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
     border: 1px solid var(--border-color);
 }
 
-.disclaimer-note p {
-    margin-bottom: 10px;
+.disclaimer-note p { margin-bottom: 0.5rem; }
+.disclaimer-note p:last-child { margin-bottom: 0; }
+
+.fake-btn-container { text-align: center; margin: 0.6rem 0; }
+
+.fake-btn-label {
+    display: inline-flex;
+    align-items: center;
+    background: var(--secondary-bg-color);
+    color: var(--text-color);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
 }
 
-/* Centrado del ejemplo del botón dentro del texto */
-.fake-btn-container {
-    text-align: center; 
-    margin: 10px 0;
-}
-
-/* Contenedor del Checkbox de términos */
 .terms-container {
-    margin-bottom: 20px; 
-    display: flex; 
-    align-items: flex-start; 
-    gap: 10px;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
 }
 
-.terms-container label {
-    font-size: 0.9rem; 
+.terms-container input[type="checkbox"] {
+    accent-color: var(--primary-color);
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
     cursor: pointer;
 }
 
-/* Botón de continuar específico */
-.btn-continue {
-    width: 100%;
+.terms-container label {
+    font-size: 0.88rem;
+    cursor: pointer;
+    color: var(--text-color);
+    line-height: 1.5;
 }
 
-/* Estado deshabilitado del botón continuar */
+.access-box a { color: var(--primary-color); }
+
+.btn-continue { width: 100%; justify-content: center; }
+
 #btn-continue-chat:disabled {
-    background-color: #ccc !important;
+    background-color: var(--border-color) !important;
+    color: var(--text-secondary) !important;
+    border-color: var(--border-color) !important;
     cursor: not-allowed;
-    border-color: #bbb;
+    opacity: 0.65;
+    box-shadow: none;
+    transform: none;
+}
+
+/* ─── Input Matrícula ──────────────────────────────────── */
+.matricula-group {
+    margin-bottom: 1.25rem;
+}
+
+.matricula-input {
+    width: 100%;
+    padding: 0.8rem 1.1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.matricula-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.55;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.matricula-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.12);
+}
+
+.matricula-input.input-error {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.matricula-error {
+    color: var(--error-color);
+    font-size: 0.82rem;
+    margin-top: 0.5rem;
+    text-align: left;
+    line-height: 1.4;
+}
+
+/* ─── Animaciones ──────────────────────────────────────── */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(24px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ─── Responsive ───────────────────────────────────────── */
+@media (max-width: 768px) {
+    #chat-container {
+        height: calc(100vh - 140px);
+        margin: 0.5rem;
+        border-radius: 12px;
+    }
+
+    .access-box { padding: 1.75rem 1.25rem; }
+    .access-title { font-size: 1.2rem; }
+}
+
+@media (max-width: 480px) {
+    #chat-container { height: calc(100vh - 120px); margin: 0.25rem; }
+    .message { max-width: 90%; font-size: 0.9rem; }
+    .chat-messages { padding: 1rem; gap: 0.75rem; }
+    .chat-input { padding: 8px; }
 }

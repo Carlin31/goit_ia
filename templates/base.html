@@ -7,81 +7,121 @@
     <title>{% block title %}Goit-IA{% endblock %}</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    
+
     {% block styles %}{% endblock %}
 
     <link rel="icon" href="{{ url_for('static', filename='images/isotipo-oscuro.svg') }}" media="(prefers-color-scheme: light)">
-    
-    <link rel="icon" href="{{ url_for('static', filename='images/isotipo-claro.svg') }}" media="(prefers-color-scheme: dark)">
-    
+    <link rel="icon" href="{{ url_for('static', filename='images/isotipo-claro.svg') }}"  media="(prefers-color-scheme: dark)">
     <link rel="icon" href="{{ url_for('static', filename='images/isotipo-oscuro.svg') }}">
 </head>
 <body>
 
+    <!-- Skip link para accesibilidad por teclado -->
+    <a href="#main-content" class="skip-link">Ir al contenido principal</a>
+
     <header>
         <div class="logo">
-            <a href="{{ url_for('inicio.index') }}">
-                <img src="{{ url_for('static', filename='images/logo-claro.svg') }}" 
-                     alt="Logo Goit-IA" 
+            <a href="{{ url_for('inicio.index') }}" aria-label="Goit-IA — Inicio">
+                <img src="{{ url_for('static', filename='images/logo-claro.svg') }}"
+                     alt="Logo Goit-IA"
                      class="logo-light-mode">
-                
-                <img src="{{ url_for('static', filename='images/logo-oscuro.svg') }}" 
-                     alt="Logo Goit-IA" 
+                <img src="{{ url_for('static', filename='images/logo-oscuro.svg') }}"
+                     alt="Logo Goit-IA"
                      class="logo-dark-mode">
             </a>
         </div>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('inicio.index') }}" 
-                       class="{{ 'active' if active_page == 'inicio' else '' }}">Inicio</a></li>
-                
-                <li><a href="{{ url_for('chatbot.chat') }}"
-                       class="{{ 'active' if active_page == 'chat' else '' }}">Chat</a></li>
-                       
-                <li><a href="{{ url_for('informacion.info') }}"
-                       class="{{ 'active' if active_page == 'informacion' else '' }}">Información</a></li>
-                       
-                <li><a href="{{ url_for('acercade.acerca_de') }}"
-                       class="{{ 'active' if active_page == 'acerca_de' else '' }}">About Us</a></li>
-            </ul>
-        </nav>
-            <label class="theme-switch" for="dark-mode-toggle">
+
+        <div class="header-controls">
+            <nav id="main-nav" aria-label="Navegación principal">
+                <ul role="list">
+                    <li>
+                        <a href="{{ url_for('inicio.index') }}"
+                           class="{{ 'active' if active_page == 'inicio' else '' }}"
+                           {% if active_page == 'inicio' %}aria-current="page"{% endif %}>
+                           Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('chatbot.chat') }}"
+                           class="{{ 'active' if active_page == 'chat' else '' }}"
+                           {% if active_page == 'chat' %}aria-current="page"{% endif %}>
+                           Chat
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('informacion.info') }}"
+                           class="{{ 'active' if active_page == 'informacion' else '' }}"
+                           {% if active_page == 'informacion' %}aria-current="page"{% endif %}>
+                           Información
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('acercade.acerca_de') }}"
+                           class="{{ 'active' if active_page == 'acerca_de' else '' }}"
+                           {% if active_page == 'acerca_de' %}aria-current="page"{% endif %}>
+                           About Us
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Toggle tema claro/oscuro -->
+            <label class="theme-switch" for="dark-mode-toggle" aria-label="Cambiar tema de color">
                 <input type="checkbox" id="dark-mode-toggle">
-                
-                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+
+                <!-- Ícono Sol (modo claro activo) -->
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1"  x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22"  y1="4.22"  x2="5.64"  y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1"  y1="12" x2="3"  y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36"/>
+                    <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
                 </svg>
 
-                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                <!-- Ícono Luna (modo oscuro activo) -->
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                 </svg>
-
             </label>
+
+            <!-- Botón hamburger (visible solo en mobile) -->
+            <button class="nav-toggle" id="nav-toggle"
+                    aria-controls="main-nav"
+                    aria-expanded="false"
+                    aria-label="Abrir menú de navegación">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </header>
 
-    <main>
+    <main id="main-content">
         {% block content %}{% endblock %}
     </main>
 
-<footer class="site-footer">
+    <footer class="site-footer" aria-label="Pie de página">
         <div class="footer-container">
-            
+
+            <!-- Columna Brand -->
             <div class="footer-col brand-col">
                 <div class="footer-logo">
-                    <a href="{{ url_for('inicio.index') }}">
-                        <img src="{{ url_for('static', filename='images/logo-claro.svg') }}" 
-                             alt="Logo Goit-IA" 
+                    <a href="{{ url_for('inicio.index') }}" aria-label="Goit-IA — Inicio">
+                        <img src="{{ url_for('static', filename='images/logo-claro.svg') }}"
+                             alt="Logo Goit-IA"
                              class="logo-light-mode">
-                        <img src="{{ url_for('static', filename='images/logo-oscuro.svg') }}" 
-                             alt="Logo Goit-IA" 
+                        <img src="{{ url_for('static', filename='images/logo-oscuro.svg') }}"
+                             alt="Logo Goit-IA"
                              class="logo-dark-mode">
                     </a>
                 </div>
@@ -90,6 +130,7 @@
                 </p>
             </div>
 
+            <!-- Columna Navegación -->
             <div class="footer-col links-col">
                 <h3>Navegación</h3>
                 <ul>
@@ -100,24 +141,25 @@
                 </ul>
             </div>
 
+            <!-- Columna Legal -->
             <div class="footer-col links-col">
-                <h3>Legal y Administración</h3>
+                <h3>Legal</h3>
                 <ul>
                     <li><a href="{{ url_for('privacidad.privacidad') }}">Aviso de Privacidad</a></li>
                     <li><a href="{{ url_for('admin.login') }}">Administración</a></li>
                 </ul>
             </div>
 
-            <div class="footer-col faculty-col centered-col">
-                
+            <!-- Columna Facultad -->
+            <div class="footer-col faculty-col">
                 <div class="faculty-logo">
-                    <a href="https://www.uv.mx/orizaba/negocios/" target="_blank">
-                        <img src="{{ url_for('static', filename='images/logo-uv-claro.svg') }}" 
-                             alt="Logo UV" 
+                    <a href="https://www.uv.mx/orizaba/negocios/" target="_blank" rel="noopener noreferrer"
+                       aria-label="Universidad Veracruzana — Facultad de Negocios y Tecnologías">
+                        <img src="{{ url_for('static', filename='images/logo-uv-claro.svg') }}"
+                             alt="Logo UV"
                              class="logo-light-mode">
-                        
-                        <img src="{{ url_for('static', filename='images/logo-uv-oscuro.svg') }}" 
-                             alt="Logo UV" 
+                        <img src="{{ url_for('static', filename='images/logo-uv-oscuro.svg') }}"
+                             alt="Logo UV"
                              class="logo-dark-mode">
                     </a>
                 </div>
@@ -128,24 +170,80 @@
                 </div>
 
                 <div class="social-icons faculty-icons">
-                    <a href="https://www.facebook.com/FacultadNegociosyTecnologiaCampusIxtac" target="_blank" aria-label="Facebook">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    <a href="https://www.facebook.com/FacultadNegociosyTecnologiaCampusIxtac"
+                       target="_blank" rel="noopener noreferrer" aria-label="Facebook de la FNT">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
                     </a>
-                    <a href="https://www.instagram.com/fnt_uvixtac/" target="_blank" aria-label="Instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <a href="https://www.instagram.com/fnt_uvixtac/"
+                       target="_blank" rel="noopener noreferrer" aria-label="Instagram de la FNT">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                        </svg>
                     </a>
-                    <a href="https://www.uv.mx/orizaba/negocios/" target="_blank" aria-label="Web">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    <a href="https://www.uv.mx/orizaba/negocios/"
+                       target="_blank" rel="noopener noreferrer" aria-label="Sitio web de la FNT">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="2" y1="12" x2="22" y2="12"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
                     </a>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="footer-bottom">
             <p>&copy; 2025 Goit-IA. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <!-- Script: hamburger menu -->
+    <script>
+    (function () {
+        const toggle = document.getElementById('nav-toggle');
+        const nav    = document.getElementById('main-nav');
+        if (!toggle || !nav) return;
+
+        toggle.addEventListener('click', function () {
+            const isOpen = nav.classList.toggle('open');
+            toggle.classList.toggle('open', isOpen);
+            toggle.setAttribute('aria-expanded', String(isOpen));
+            toggle.setAttribute('aria-label',
+                isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+        });
+
+        // Cerrar al hacer clic en un enlace
+        nav.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                nav.classList.remove('open');
+                toggle.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Abrir menú de navegación');
+            });
+        });
+
+        // Cerrar al pulsar Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && nav.classList.contains('open')) {
+                nav.classList.remove('open');
+                toggle.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.focus();
+            }
+        });
+    })();
+    </script>
 
     <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 </body>
