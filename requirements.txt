@@ -1,24 +1,29 @@
-Flask==3.1.2
-langchain
+# ── Web Framework ──────────────────────────────────────────────
+Flask
+python-dotenv
+
+# ── Base de datos ───────────────────────────────────────────────
+pymongo
+
+# ── LangChain ───────────────────────────────────────────────────
 langchain-community
-langchain-core
-langchain-ollama
+langchain-groq
+langchain-huggingface
+langchain-chroma
 langchain-text-splitters
+
+# ── Embeddings y vectores ────────────────────────────────────────
+huggingface_hub
 chromadb
+
+# ── Scraping y carga de documentos ──────────────────────────────
 requests
 beautifulsoup4
-pandas
-nltk
-scikit-learn
-tqdm
-langchain-groq
-python-dotenv
 pypdf
-pymongo
-pandas
-langchain-huggingface
-sentence-transformers
-langchain-chroma
 pdfplumber
-PyPDF2>=3.0.0
-reportlab
+
+# ── Utilidades ───────────────────────────────────────────────────
+numpy
+pandas
+tqdm
+scikit-learn

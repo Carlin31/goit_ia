@@ -21,22 +21,11 @@ CHROMA_TENANT = os.getenv("CHROMA_TENANT")
 CHROMA_DATABASE = os.getenv("CHROMA_DATABASE")
 CHROMA_COLLECTION = "goit_vectores"
 
-# chunk_size=1800 y overlap=150 equilibra calidad de recuperación con cantidad de fragmentos.
-# CHROMA_MAX_RECORDS debe mantenerse por debajo del límite del plan (300 en plan gratuito).
-CHUNK_SIZE = 1800
-CHUNK_OVERLAP = 150
-CHROMA_MAX_RECORDS = 280  # margen de seguridad antes del límite de 300
-
 
 def actualizar_base_datos_completa(registry_data):
     """
     Función Generadora (Streaming) para entrenar la IA.
     Guarda los vectores en Chroma Cloud — sin almacenamiento local.
-
-    Optimizaciones aplicadas:
-    - chunk_size=1000 (reducido de 2500): fragmentos más granulares para recuperación precisa.
-    - chunk_overlap=200 (aumentado de 50): mejor continuidad de contexto entre fragmentos.
-    - Metadata de fuente en cada fragmento: permite filtrado futuro por origen.
     """
 
     def enviar_msg(texto):
@@ -53,22 +42,13 @@ def actualizar_base_datos_completa(registry_data):
         urls = [item['url'] for item in registry_data.get('urls', [])]
         if urls:
             yield enviar_msg(f"📡 Descargando {len(urls)} URLs...")
-            for url_item in registry_data.get('urls', []):
-                url = url_item['url']
-                nombre = url_item.get('name', url)
-                try:
-                    loader_web = WebBaseLoader([url])
-                    docs_web = loader_web.load()
-                    # Agregar metadata de fuente a cada documento
-                    for doc in docs_web:
-                        doc.metadata['fuente'] = nombre
-                        doc.metadata['tipo'] = 'url'
-                    todos_los_documentos.extend(docs_web)
-                    yield enviar_msg(f"  ✅ {nombre}: {len(docs_web)} página(s) descargadas.")
-                except Exception as e:
-                    yield enviar_msg(f"  ⚠️ Error en '{nombre}': {str(e)}")
-
-            yield enviar_msg(f"📊 Total desde URLs: {sum(1 for d in todos_los_documentos if d.metadata.get('tipo') == 'url')} páginas.")
+            try:
+                loader_web = WebBaseLoader(urls)
+                docs_web = loader_web.load()
+                todos_los_documentos.extend(docs_web)
+                yield enviar_msg(f"✅ Descarga web completada: {len(docs_web)} páginas.")
+            except Exception as e:
+                yield enviar_msg(f"⚠️ Error parcial en URLs: {str(e)}")
 
         # --- B) Procesar PDFs ---
         pdfs = registry_data.get('pdfs', [])
@@ -85,47 +65,22 @@ def actualizar_base_datos_completa(registry_data):
                     try:
                         loader_pdf = PyPDFLoader(abs_path)
                         docs_pdf = loader_pdf.load()
-                        # Agregar metadata de fuente a cada página
-                        for doc in docs_pdf:
-                            doc.metadata['fuente'] = pdf_item['filename']
-                            doc.metadata['tipo'] = 'pdf'
                         todos_los_documentos.extend(docs_pdf)
                         count_pdf += 1
-                        yield enviar_msg(f"  ✅ {pdf_item['filename']}: {len(docs_pdf)} página(s).")
                     except Exception as e:
-                        yield enviar_msg(f"  ⚠️ Fallo al leer PDF: {e}")
+                        yield enviar_msg(f"⚠️ Fallo al leer PDF: {e}")
                 else:
                     yield enviar_msg(f"⚠️ Archivo no encontrado: {rel_path}")
                     print(f"DEBUG: Busqué en -> {abs_path}")
 
-            yield enviar_msg(f"✅ {count_pdf}/{len(pdfs)} PDFs procesados.")
+            yield enviar_msg(f"✅ {count_pdf} PDFs procesados correctamente.")
 
-        # --- C) Fragmentar y cargar en Chroma Cloud ---
+        # --- C) Actualizar Chroma Cloud ---
         if todos_los_documentos:
             yield enviar_msg(f"✂️ Fragmentando {len(todos_los_documentos)} documentos...")
-            yield enviar_msg(f"   chunk_size={CHUNK_SIZE}, chunk_overlap={CHUNK_OVERLAP}")
-
-            text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=CHUNK_SIZE,
-                chunk_overlap=CHUNK_OVERLAP,
-                separators=["\n\n", "\n", ". ", " ", ""]
-            )
+            text_splitter = RecursiveCharacterTextSplitter(chunk_size=2500, chunk_overlap=50)
             chunks = text_splitter.split_documents(todos_los_documentos)
             yield enviar_msg(f"📊 Total de fragmentos generados: {len(chunks)}")
-
-            # Salvaguarda de cuota: Chroma Cloud limita el número de registros por plan.
-            if len(chunks) > CHROMA_MAX_RECORDS:
-                yield enviar_msg(
-                    f"⚠️ Se generaron {len(chunks)} fragmentos, pero el límite configurado "
-                    f"es {CHROMA_MAX_RECORDS}. Se usarán solo los primeros {CHROMA_MAX_RECORDS} "
-                    f"fragmentos para no exceder la cuota de Chroma Cloud."
-                )
-                yield enviar_msg(
-                    "   Consejo: reduce la cantidad de documentos, o solicita un aumento de cuota "
-                    "en trychroma.com para procesar todos los fragmentos."
-                )
-                chunks = chunks[:CHROMA_MAX_RECORDS]
-                yield enviar_msg(f"✂️ Fragmentos reducidos a {len(chunks)}.")
 
             yield enviar_msg("☁️ Conectando con Chroma Cloud...")
             chroma_client = chromadb.CloudClient(
@@ -156,7 +111,6 @@ def actualizar_base_datos_completa(registry_data):
             vector_db.add_documents(documents=chunks)
 
             yield enviar_msg("✅ ¡Entrenamiento exitoso! Vectores guardados en Chroma Cloud.")
-            yield enviar_msg(f"   {len(chunks)} fragmentos listos para recuperación precisa.")
         else:
             yield enviar_msg("⚠️ No se encontraron documentos válidos (ni URLs ni PDFs).")
 

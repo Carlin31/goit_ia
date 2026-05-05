@@ -18,6 +18,7 @@ if project_root not in sys.path:
 from database import faq_collection
 
 # --- MODELO DE EMBEDDINGS VÍA API ---
+# Sin descarga local — usa HuggingFace API con HF_TOKEN
 HF_TOKEN = os.getenv("HF_TOKEN")
 
 print("🔄 Conectando con API de embeddings (HuggingFace)...")
@@ -30,50 +31,38 @@ print("✅ API de embeddings lista.")
 # --- VARIABLES GLOBALES DEL MODELO KNN ---
 knn_model = None
 respuestas_knn = []
-bloqueado_flags = []
 
 
 def inicializar_knn():
     """
-    Carga los datos desde MongoDB y entrena el modelo KNN.
-    Usa n_neighbors=min(3, total) para verificar los mejores candidatos.
-    Almacena el flag 'bloqueado' por cada FAQ.
+    Carga los datos desde MongoDB y entrena (o re-entrena) el modelo KNN
+    usando embeddings vía API de HuggingFace.
     """
-    global knn_model, respuestas_knn, bloqueado_flags
+    global knn_model, respuestas_knn
 
     try:
         print("🔄 Cargando base de conocimiento FAQ desde MongoDB...")
 
-        documentos = list(faq_collection.find(
-            {}, {"_id": 0, "pregunta": 1, "respuesta": 1, "bloqueado": 1}
-        ))
+        documentos = list(faq_collection.find({}, {"_id": 0, "pregunta": 1, "respuesta": 1}))
 
         if not documentos:
-            print("⚠️ La colección FAQ está vacía. El modelo KNN no sabrá nada.")
-            knn_model = None
-            respuestas_knn = []
-            bloqueado_flags = []
+            print("⚠️ Advertencia: La colección FAQ está vacía. El modelo KNN no sabrá nada.")
             return
 
         preguntas = [doc['pregunta'] for doc in documentos]
         respuestas_knn = [doc['respuesta'] for doc in documentos]
-        bloqueado_flags = [doc.get('bloqueado', False) for doc in documentos]
 
-        # Embeddings vectoriales de todas las preguntas
+        # Convertir preguntas a embeddings vía API
         X_dataset = np.array(modelo_embedding.embed_documents(preguntas))
 
-        # n_neighbors=min(3, total) permite verificar los top-3 candidatos
-        n_vecinos = min(3, len(preguntas))
-        knn_model = NearestNeighbors(n_neighbors=n_vecinos, metric='cosine')
+        # Entrenar KNN con métrica coseno sobre los embeddings
+        knn_model = NearestNeighbors(n_neighbors=1, metric='cosine')
         knn_model.fit(X_dataset)
 
-        bloqueadas = sum(1 for b in bloqueado_flags if b)
-        print(f"✅ Modelo KNN listo. Total: {len(respuestas_knn)} FAQs "
-              f"({bloqueadas} bloqueadas, {n_vecinos} vecinos activos).")
+        print(f"✅ Modelo KNN semántico listo. Total conocimientos: {len(respuestas_knn)}")
 
     except Exception as e:
-        print(f"⚠️ No se pudo inicializar KNN. Usando solo LLM. Detalle: {e}")
-        knn_model = None
+        print(f"⚠️ Advertencia KNN: No se pudo inicializar. Usando solo LLM. Detalle: {e}")
 
 
 # Carga inicial al importar el módulo
@@ -82,34 +71,27 @@ inicializar_knn()
 
 def obtener_respuesta_knn(pregunta_usuario):
     """
-    Busca la FAQ más similar usando embeddings semánticos.
-
-    Retorna una tupla (respuesta, distancia_coseno, bloqueado):
-    - respuesta: texto de la FAQ más cercana, o None si no hay modelo.
-    - distancia_coseno: 0.0 = idéntico, 1.0 = completamente diferente.
-    - bloqueado: True si la FAQ tiene respuesta bloqueada (siempre fija).
+    Busca en el modelo KNN usando embeddings semánticos vía API.
+    Retorna la respuesta más cercana y su distancia coseno.
+    Distancia cercana a 0 = muy similar, cercana a 1 = muy diferente.
     """
-    global knn_model, respuestas_knn, bloqueado_flags
+    global knn_model, respuestas_knn
 
     if not knn_model:
-        return None, 1.0, False
+        return None, 1.0
 
     try:
+        # Convertir pregunta del usuario a embedding vía API
         X_usuario = np.array(modelo_embedding.embed_query(pregunta_usuario)).reshape(1, -1)
 
         distancias, indices = knn_model.kneighbors(X_usuario)
 
-        # El índice [0][0] siempre es el vecino más cercano
-        indice_mejor = indices[0][0]
-        distancia_mejor = distancias[0][0]
+        indice_respuesta = indices[0][0]
+        distancia = distancias[0][0]
+        respuesta = respuestas_knn[indice_respuesta]
 
-        respuesta = respuestas_knn[indice_mejor]
-        bloqueado = bloqueado_flags[indice_mejor] if bloqueado_flags else False
-
-        print(f"[KNN] Distancia coseno: {distancia_mejor:.4f} | Bloqueado: {bloqueado}")
-
-        return respuesta, distancia_mejor, bloqueado
+        return respuesta, distancia
 
     except Exception as e:
         print(f"Error en predicción KNN: {e}")
-        return None, 1.0, False
+        return None, 1.0
